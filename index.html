@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🐻 Berry the Bear AI Assistant</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;900&family=Comic+Neue:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <!-- Header with Title -->
+        <header>
+            <div class="header-content">
+                <h1>🐻 Berry the Bear</h1>
+                <p class="subtitle">Your Cuddly AI Companion</p>
+                <div class="weather-bubble" id="weather-info">
+                    <i class="fas fa-cloud-sun"></i>
+                    <span>Loading weather...</span>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Content Area -->
+        <div class="main-content">
+            <!-- Bear Display Area -->
+            <div class="bear-container">
+                <div class="bear-character" id="bear-character">
+                    <div class="bear-face">
+                        <div class="bear-ears">
+                            <div class="ear left-ear"></div>
+                            <div class="ear right-ear"></div>
+                        </div>
+                        <div class="bear-eyes">
+                            <div class="eye left-eye">
+                                <div class="pupil"></div>
+                            </div>
+                            <div class="eye right-eye">
+                                <div class="pupil"></div>
+                            </div>
+                        </div>
+                        <div class="bear-nose"></div>
+                        <div class="bear-mouth" id="bear-mouth"></div>
+                        <div class="bear-blush left-blush"></div>
+                        <div class="bear-blush right-blush"></div>
+                    </div>
+                    <div class="speech-bubble" id="speech-bubble">
+                        <div class="bubble-content">
+                            <p id="bear-speech">Hello! I'm Berry! 🍓 How can I help you today?</p>
+                        </div>
+                        <div class="bubble-tail"></div>
+                    </div>
+                    <div class="bear-body">
+                        <div class="arm left-arm"></div>
+                        <div class="arm right-arm"></div>
+                        <div class="tummy"></div>
+                    </div>
+                </div>
+                
+                <!-- Bear Mood Indicators -->
+                <div class="mood-indicators">
+                    <div class="mood-item">
+                        <span class="mood-label">Mood:</span>
+                        <div class="mood-display">
+                            <div class="mood-icon" id="mood-icon">😊</div>
+                            <span id="mood-text">Happy</span>
+                        </div>
+                    </div>
+                    <div class="energy-level">
+                        <span>Energy:</span>
+                        <div class="energy-bar">
+                            <div class="energy-fill" id="energy-fill"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Chat Interface -->
+            <div class="chat-container">
+                <div class="chat-header">
+                    <h2><i class="fas fa-comments"></i> Chat with Berry</h2>
+                    <div class="voice-controls">
+                        <button class="voice-btn" id="voice-toggle">
+                            <i class="fas fa-microphone"></i>
+                            <span>Voice: ON</span>
+                        </button>
+                        <button class="voice-btn" id="speak-btn">
+                            <i class="fas fa-volume-up"></i>
+                            <span>Speak</span>
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Chat Messages -->
+                <div class="chat-messages" id="chat-messages">
+                    <div class="message bear-message">
+                        <div class="message-avatar">🐻</div>
+                        <div class="message-content">
+                            <p>Hi there! I'm Berry, your friendly bear AI! I can help you with:</p>
+                            <ul class="capabilities">
+                                <li>Answering questions 🧠</li>
+                                <li>Telling jokes 😄</li>
+                                <li>Checking time & date ⏰</li>
+                                <li>Playing games 🎮</li>
+                                <li>Weather information 🌤️</li>
+                                <li>And just chatting! 💬</li>
+                            </ul>
+                            <span class="message-time">Just now</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Input Area -->
+                <div class="input-area">
+                    <div class="input-container">
+                        <input type="text" id="user-input" placeholder="Type your message here... or say 'Hey Berry!'" 
+                               autocomplete="off">
+                        <div class="input-buttons">
+                            <button id="send-btn" class="action-btn">
+                                <i class="fas fa-paper-plane"></i>
+                            </button>
+                            <button id="clear-btn" class="action-btn secondary">
+                                <i class="fas fa-broom"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="quick-actions">
+                        <button class="quick-btn" data-action="joke">
+                            <i class="fas fa-laugh-beam"></i> Tell a joke
+                        </button>
+                        <button class="quick-btn" data-action="weather">
+                            <i class="fas fa-cloud-sun"></i> Check weather
+                        </button>
+                        <button class="quick-btn" data-action="story">
+                            <i class="fas fa-book"></i> Tell a story
+                        </button>
+                        <button class="quick-btn" data-action="game">
+                            <i class="fas fa-gamepad"></i> Play a game
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Features Panel -->
+            <div class="features-panel">
+                <h3><i class="fas fa-star"></i> Berry's Features</h3>
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <div class="feature-icon">🗣️</div>
+                        <h4>Voice Recognition</h4>
+                        <p>Talk to Berry using your voice</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">🎵</div>
+                        <h4>Voice Response</h4>
+                        <p>Berry talks back to you!</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">🎭</div>
+                        <h4>Emotional AI</h4>
+                        <p>Berry has moods and feelings</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">🎮</div>
+                        <h4>Games & Fun</h4>
+                        <p>Play simple games together</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <footer>
+            <p>Made with ❤️ by Berry the Bear | <span id="current-time">Loading time...</span></p>
+            <div class="footer-links">
+                <button id="settings-btn"><i class="fas fa-cog"></i> Settings</button>
+                <button id="help-btn"><i class="fas fa-question-circle"></i> Help</button>
+                <button id="about-btn"><i class="fas fa-info-circle"></i> About Berry</button>
+            </div>
+        </footer>
+    </div>
+
+    <!-- Settings Modal -->
+    <div class="modal" id="settings-modal">
+        <div class="modal-content">
+            <h3><i class="fas fa-cog"></i> Berry's Settings</h3>
+            <div class="setting-item">
+                <label>
+                    <input type="checkbox" id="voice-enabled" checked>
+                    Enable Voice Features
+                </label>
+            </div>
+            <div class="setting-item">
+                <label>
+                    <input type="checkbox" id="sound-effects" checked>
+                    Sound Effects
+                </label>
+            </div>
+            <div class="setting-item">
+                <label>
+                    Berry's Voice Speed:
+                    <input type="range" id="voice-speed" min="0.5" max="2" step="0.1" value="1">
+                    <span id="speed-value">Normal</span>
+                </label>
+            </div>
+            <button class="close-modal" id="close-settings">Save & Close</button>
+        </div>
+    </div>
+
+    <!-- Audio Elements -->
+    <audio id="speech-audio" preload="auto"></audio>
+    <audio id="notification-sound" src="https://assets.mixkit.co/sfx/preview/mixkit-correct-answer-tone-2870.mp3"></audio>
+    
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
