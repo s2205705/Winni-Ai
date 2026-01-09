@@ -1,67 +1,54 @@
-class BerryBearAI {
+class WinniBearAI {
     constructor() {
-        this.moods = ['happy', 'excited', 'curious', 'sleepy', 'playful', 'magical', 'cozy'];
-        this.currentMood = 'happy';
-        this.energy = 80;
-        this.conversationHistory = [];
-        this.voiceEnabled = true;
-        this.speechSynthesis = window.speechSynthesis;
-        this.recognition = null;
-        this.isListening = false;
+        // Winni's State
+        this.mood = 'happy';
+        this.energy = 92;
+        this.friendship = 80;
         this.isSleeping = false;
-        this.lastInteraction = Date.now();
+        this.isListening = false;
+        this.voiceEnabled = true;
+        this.conversationHistory = [];
         
-        // Weather API with proper endpoint
+        // Weather API
         this.weatherAPI = 'https://api.open-meteo.com/v1/forecast?latitude=52.52&longitude=13.41&current=temperature_2m,wind_speed_10m,relative_humidity_2m&hourly=temperature_2m,relative_humidity_2m,wind_speed_10m';
         
-        // Enhanced responses database
+        // Response Database
         this.responses = {
+            greetings: [
+                "Hello there! Winni the Bear at your service! 🐻✨",
+                "Hi friend! Ready for some forest adventures? 🌳",
+                "Greetings! I'm Winni, your magical bear companion! 🎩",
+                "Welcome back! I was just thinking about you! 💭"
+            ],
             jokes: [
                 "Why don't bears wear shoes? Because they have bear feet! 🐾",
                 "What's a bear's favorite drink? Koka-Koala! 🐨",
                 "Why did the bear go to the restaurant? For the honey-glazed salmon! 🍯",
-                "How do bears keep their den clean? They use bear-oom spray! 🧹",
-                "What do you call a bear with no teeth? A gummy bear! 🧸",
-                "Why did the bear cross the road? To get to the honey tree! 🌳",
-                "What's a bear's favorite movie? The Bee Movie! 🐝"
+                "How do bears keep their den clean? They use bear-oom spray! 🧹"
             ],
             stories: [
-                "Once upon a time, in a magical forest, there was a bear named Berry who could talk to the stars... ✨",
-                "Let me tell you about the Great Berry Adventure! It all started when I found a magic acorn that could grant wishes... 🌰",
-                "In the heart of the enchanted woods, there's a legend of the Moon Bear who dances under the full moon... 🌕",
-                "One rainy day, I discovered a secret cave filled with glowing mushrooms and friendly forest spirits... 🍄",
-                "The Tale of the Whispering Trees: Every night, the ancient trees share stories with those who listen... 🌲"
-            ],
-            songs: [
-                "🎵 Berry, Berry, lovely bear, with fuzzy fur and honey hair! Dancing in the morning light, everything will be alright! 🎵",
-                "🎶 Oh, I'm a happy bear, with love to share! Singing in the rain, forgetting all the pain! 🎶",
-                "🎤 Twinkle, twinkle, little star, Berry wonders what you are! Up above the trees so high, like a honey pot in the sky! 🎤",
-                "🎹 The bear went over the mountain, the bear went over the mountain, the bear went over the mountain, to see what he could see! 🎹"
+                "Once upon a time in the enchanted forest, there was a little bear who discovered a magical honey tree that glowed in the moonlight... 🌙🍯",
+                "Let me tell you about the Great Berry Adventure! Winni once followed a trail of sparkling berries to a secret meadow where fireflies danced in rainbow colors... ✨🪩",
+                "In the heart of the whispering woods, there's a legend about the Moon Bear who paints the stars every night... 🌟🎨",
+                "One rainy afternoon, Winni found a cozy cave filled with ancient scrolls that told stories of the forest's history... 📜🌧️"
             ],
             facts: [
-                "Did you know? Bears can run up to 35 miles per hour! That's faster than Olympic sprinters! 🏃‍♂️",
-                "Fun fact: A bear's sense of smell is 2,100 times better than a human's! 👃",
-                "Amazing: Bears walk on the soles of their feet, just like humans! That's called plantigrade! 👣",
-                "Cool fact: Bears are excellent swimmers and climbers! They're like nature's athletes! 🏊‍♂️",
-                "Interesting: Some bears build nests in trees to rest and eat! How cozy! 🌳"
+                "Did you know? A bear's sense of smell is 2,100 times better than a human's! They can smell honey from 3 kilometers away! 👃🍯",
+                "Fun fact: Bears can run up to 35 miles per hour – that's faster than Olympic sprinters! 🏃‍♂️💨",
+                "Amazing: Some bears build nests in trees to rest and eat! How cozy is that? 🌳🛏️",
+                "Interesting: Bears walk on the soles of their feet, just like humans! That's called plantigrade locomotion! 👣"
             ],
-            games: [
-                "Let's play 'Guess the Berry'! I'm thinking of a berry... is it red, blue, or purple? 🍓",
-                "How about a riddle? What has forests but no trees, cities but no buildings, and rivers but no water? A map! 🗺️",
-                "Let's play 'Magic Number'! Think of a number between 1 and 10... Did you pick 7? 🎯",
-                "Word game time! I'll say a word, and you say the first thing that comes to mind... Ready? 'Honey'! 🍯"
-            ],
-            greetings: [
-                "Hello there! Berry the Bear at your service! ✨",
-                "Hi friend! Ready for some magical fun? 🌟",
-                "Greetings! I'm Berry, your enchanted bear companion! 🐻",
-                "Welcome! The forest is happy to see you today! 🌳"
-            ]
+            weatherResponses: {
+                sunny: ["Perfect day for a forest picnic! ☀️🌳", "The sun is smiling on us today! 😊", "Great weather for honey collecting! 🍯"],
+                cloudy: ["Cozy cloud cover today! Perfect for storytelling! ☁️📖", "The clouds are painting pictures in the sky! 🎨", "Soft light for a gentle forest walk! 🌥️"],
+                rainy: ["Rainy days are perfect for cozy den time! ☔🛋️", "The forest is getting a nice drink of water! 💧", "Let's watch the raindrops dance! 💃"],
+                snowy: ["Winter wonderland! Time for bear snow angels! ❄️👼", "The forest is wearing a white blanket! 🛌", "Perfect weather for hot honey tea! 🍵"]
+            }
         };
         
         this.init();
     }
-
+    
     init() {
         this.setupEventListeners();
         this.updateUI();
@@ -69,85 +56,102 @@ class BerryBearAI {
         this.loadWeather();
         this.setupSpeechRecognition();
         this.setupEmojiPicker();
-        this.setupThemeSwitcher();
         
-        // Initial greeting with confetti
+        // Initial greeting
         setTimeout(() => {
-            this.speak("Welcome to the magical world of Berry the Bear! I'm so excited to be your AI companion!");
-            this.updateBearSpeech("Hello! I'm Berry! ✨ Ready for magical adventures?");
+            this.speak("Hello! I'm Winni the Bear! So happy to meet you!");
+            this.updateWinniSpeech(this.randomChoice(this.responses.greetings));
             this.createConfetti();
         }, 1000);
         
-        // Auto mood updates
-        setInterval(() => this.autoUpdateMood(), 30000);
-        
-        // Auto energy recharge
-        setInterval(() => {
-            if (this.energy < 100 && !this.isSleeping) {
-                this.updateEnergy(1);
-            }
-        }, 60000);
+        // Auto updates
+        setInterval(() => this.updateMood(), 30000);
+        setInterval(() => this.updateEnergy(1), 60000);
     }
-
+    
     setupEventListeners() {
-        // Send button
-        document.getElementById('send-btn').addEventListener('click', () => this.handleUserInput());
-        
-        // Enter key in input
-        document.getElementById('user-input').addEventListener('keypress', (e) => {
+        // Chat input
+        document.getElementById('send-button').addEventListener('click', () => this.handleUserInput());
+        document.getElementById('chat-input').addEventListener('keypress', (e) => {
             if (e.key === 'Enter') this.handleUserInput();
         });
         
-        // Voice controls
+        // Voice toggle
         document.getElementById('voice-toggle').addEventListener('click', () => this.toggleVoice());
-        document.getElementById('speak-btn').addEventListener('click', () => this.speakResponse());
-        document.getElementById('listen-btn').addEventListener('click', () => this.startListening());
+        document.getElementById('voice-input').addEventListener('click', () => this.toggleListening());
         
         // Clear chat
-        document.getElementById('clear-btn').addEventListener('click', () => this.clearChat());
+        document.getElementById('clear-chat').addEventListener('click', () => this.clearChat());
         
-        // Emoji picker
-        document.getElementById('emoji-btn').addEventListener('click', () => this.toggleEmojiPicker());
-        
-        // Quick action buttons
-        document.querySelectorAll('.quick-btn').forEach(btn => {
+        // Quick actions
+        document.querySelectorAll('.action-button').forEach(btn => {
             btn.addEventListener('click', (e) => {
                 const action = e.currentTarget.dataset.action;
-                this.handleQuickAction(action);
-                this.createButtonMagic(e.currentTarget);
+                this.handleAction(action);
             });
         });
         
-        // Bear interaction buttons
-        document.getElementById('hug-btn').addEventListener('click', () => this.hugBerry());
-        document.getElementById('feed-btn').addEventListener('click', () => this.feedBerry());
-        document.getElementById('sleep-btn').addEventListener('click', () => this.toggleSleepMode());
-        document.getElementById('secret-btn').addEventListener('click', () => this.activateSecretMode());
+        // Suggestions
+        document.querySelectorAll('.suggestion').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                const text = e.currentTarget.dataset.suggestion;
+                document.getElementById('chat-input').value = text;
+                this.handleUserInput();
+            });
+        });
         
         // Settings
-        document.getElementById('settings-btn').addEventListener('click', () => this.showSettings());
+        document.getElementById('chat-settings').addEventListener('click', () => this.showSettings());
         document.getElementById('close-settings').addEventListener('click', () => this.hideSettings());
-        document.querySelector('.save-btn').addEventListener('click', () => this.saveSettings());
+        document.getElementById('save-settings').addEventListener('click', () => this.saveSettings());
+        
+        // Theme toggle
+        document.getElementById('theme-toggle').addEventListener('click', () => this.toggleTheme());
+        
+        // About
+        document.getElementById('about-button').addEventListener('click', () => this.showAbout());
+        
+        // Help
+        document.getElementById('help-button').addEventListener('click', () => this.showHelp());
+        
+        // Emoji picker
+        document.getElementById('emoji-picker').addEventListener('click', () => this.showEmojiPicker());
         
         // Modal close handlers
+        document.querySelectorAll('.modal-close').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                e.target.closest('.modal').classList.remove('active');
+            });
+        });
+        
         document.querySelectorAll('.modal').forEach(modal => {
             modal.addEventListener('click', (e) => {
                 if (e.target === e.currentTarget) {
-                    modal.style.display = 'none';
+                    modal.classList.remove('active');
                 }
             });
         });
         
-        // Other buttons
-        document.getElementById('help-btn').addEventListener('click', () => this.showHelp());
-        document.getElementById('about-btn').addEventListener('click', () => this.showAbout());
-        
-        // Dark mode toggle
-        document.getElementById('dark-mode').addEventListener('change', (e) => {
-            this.toggleDarkMode(e.target.checked);
+        // Settings tabs
+        document.querySelectorAll('.tab-button').forEach(tab => {
+            tab.addEventListener('click', (e) => {
+                const tabId = e.target.dataset.tab;
+                this.switchSettingsTab(tabId);
+            });
         });
+        
+        // Theme options
+        document.querySelectorAll('.theme-option').forEach(option => {
+            option.addEventListener('click', (e) => {
+                const theme = e.currentTarget.dataset.theme;
+                this.changeTheme(theme);
+            });
+        });
+        
+        // Refresh Winni
+        document.getElementById('refresh-winni').addEventListener('click', () => this.refreshWinni());
     }
-
+    
     setupSpeechRecognition() {
         if ('webkitSpeechRecognition' in window) {
             this.recognition = new webkitSpeechRecognition();
@@ -158,8 +162,8 @@ class BerryBearAI {
             this.recognition.onstart = () => {
                 this.isListening = true;
                 this.updateVoiceButton(true);
-                this.updateBearSpeech("🎤 I'm listening... speak now!");
-                document.getElementById('listen-btn').querySelector('span').textContent = 'Stop';
+                this.showTypingIndicator(true);
+                this.updateWinniSpeech("🎤 I'm listening... speak now!");
             };
             
             this.recognition.onresult = (event) => {
@@ -169,49 +173,65 @@ class BerryBearAI {
             
             this.recognition.onerror = (event) => {
                 console.error('Speech recognition error:', event.error);
-                this.updateBearSpeech("Oops! I didn't catch that. Can you try again?");
+                this.updateWinniSpeech("Oops! I didn't catch that. Can you try again?");
             };
             
             this.recognition.onend = () => {
                 this.isListening = false;
                 this.updateVoiceButton(false);
-                document.getElementById('listen-btn').querySelector('span').textContent = 'Listen';
+                this.showTypingIndicator(false);
             };
         }
     }
-
+    
     setupEmojiPicker() {
-        const emojis = ['😊', '😂', '🥰', '😍', '🤩', '😎', '🥳', '😇', '🤗', '😋', 
-                       '🤔', '🥺', '😢', '😡', '🤯', '🥶', '🤠', '🥴', '🤧', '🤖',
-                       '🐻', '🍓', '🍯', '🌳', '✨', '🌟', '💖', '💕', '🎮', '🎵',
-                       '📚', '🎨', '🔮', '🌈', '🌙', '☀️', '🌧️', '❄️', '🔥', '💧'];
+        const emojiCategories = {
+            smileys: ['😊', '😂', '🥰', '😍', '🤩', '😎', '🥳', '😇', '🤗', '😋', '🤔', '🥺', '😢', '😡', '🤯'],
+            animals: ['🐻', '🐝', '🦊', '🦁', '🐯', '🐨', '🐼', '🐰', '🦝', '🐿️', '🦔', '🦡', '🐦', '🦋', '🐞'],
+            nature: ['🌳', '🌲', '🌴', '🌱', '🌼', '🌸', '🌻', '🍃', '🍂', '🍁', '🌙', '⭐', '🌟', '✨', '☀️'],
+            objects: ['🍯', '🍓', '🍎', '🍌', '🍇', '🎮', '📚', '🎨', '🎵', '🎭', '🔮', '💎', '🎁', '🎀', '🎈'],
+            symbols: ['💖', '💕', '💫', '⚡', '🔥', '💧', '❄️', '🌈', '☁️', '☔', '🌊', '🌪️', '🌀', '💫', '✨']
+        };
         
         const emojiGrid = document.getElementById('emoji-grid');
-        emojis.forEach(emoji => {
+        
+        // Load smileys by default
+        this.loadEmojiCategory('smileys', emojiCategories);
+        
+        // Category buttons
+        document.querySelectorAll('.emoji-category').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                const category = e.target.dataset.category;
+                
+                // Update active button
+                document.querySelectorAll('.emoji-category').forEach(b => b.classList.remove('active'));
+                e.target.classList.add('active');
+                
+                // Load emojis
+                this.loadEmojiCategory(category, emojiCategories);
+            });
+        });
+    }
+    
+    loadEmojiCategory(category, emojiCategories) {
+        const emojiGrid = document.getElementById('emoji-grid');
+        emojiGrid.innerHTML = '';
+        
+        emojiCategories[category].forEach(emoji => {
             const button = document.createElement('button');
-            button.className = 'emoji-btn';
             button.textContent = emoji;
             button.addEventListener('click', () => {
-                const input = document.getElementById('user-input');
+                const input = document.getElementById('chat-input');
                 input.value += emoji;
                 input.focus();
-                document.getElementById('emoji-modal').style.display = 'none';
+                document.getElementById('emoji-modal').classList.remove('active');
             });
             emojiGrid.appendChild(button);
         });
     }
-
-    setupThemeSwitcher() {
-        document.querySelectorAll('.theme-color').forEach(btn => {
-            btn.addEventListener('click', (e) => {
-                const color = e.target.dataset.color;
-                this.changeTheme(color);
-            });
-        });
-    }
-
+    
     handleUserInput() {
-        const input = document.getElementById('user-input');
+        const input = document.getElementById('chat-input');
         const text = input.value.trim();
         
         if (!text) return;
@@ -219,299 +239,290 @@ class BerryBearAI {
         this.addMessage(text, 'user');
         this.processInput(text);
         input.value = '';
+        input.focus();
         
-        // Animate bear
-        this.animateBear();
-        
-        // Play magic sound
-        this.playSound('magic');
+        this.animateWinni();
+        this.playSound('notification');
     }
-
-    processInput(input) {
-        input = input.toLowerCase();
-        
-        // Add to conversation history
-        this.conversationHistory.push({ 
-            user: input, 
-            time: new Date(),
-            mood: this.currentMood 
-        });
-        
-        // Update last interaction
-        this.lastInteraction = Date.now();
-        
-        // Process based on input
-        let response = this.generateEnhancedResponse(input);
-        
-        // Add bear's response
-        this.addMessage(response, 'bear');
-        this.updateBearSpeech(response);
-        
-        // Speak if voice is enabled
-        if (this.voiceEnabled) {
-            this.speak(response);
-        }
-        
-        // Update mood and energy
-        this.updateMood(input);
-        this.updateEnergy(-2);
-        
-        // Create magic effect
-        this.createTypingMagic();
-    }
-
+    
     processVoiceInput(transcript) {
         this.addMessage(transcript, 'user');
         this.processInput(transcript);
     }
-
-    generateEnhancedResponse(input) {
-        // Check for specific commands
-        if (input.includes('hello') || input.includes('hi') || input.includes('hey berry')) {
+    
+    processInput(text) {
+        text = text.toLowerCase();
+        
+        // Add to history
+        this.conversationHistory.push({
+            text: text,
+            time: new Date(),
+            mood: this.mood
+        });
+        
+        // Generate response
+        let response = this.generateResponse(text);
+        
+        // Add Winni's response
+        setTimeout(() => {
+            this.addMessage(response, 'winni');
+            this.updateWinniSpeech(response);
+            
+            if (this.voiceEnabled && !this.isSleeping) {
+                this.speak(response);
+            }
+        }, 500);
+        
+        // Update stats
+        this.updateMoodBasedOnInput(text);
+        this.updateEnergy(-1);
+        this.updateFriendship(1);
+    }
+    
+    generateResponse(input) {
+        // Check for greetings
+        if (input.includes('hello') || input.includes('hi') || input.includes('hey')) {
             return this.randomChoice(this.responses.greetings);
         }
         
-        if (input.includes('how are you')) {
-            const feelings = [
-                `I'm feeling ${this.currentMood} today! My energy is at ${this.energy}%!`,
-                `I'm ${this.currentMood}! Ready for some fun! ✨`,
-                `Feeling ${this.currentMood}! The forest energy is strong today! 🌳`
-            ];
-            return this.randomChoice(feelings);
+        // Check for how are you
+        if (input.includes('how are you') || input.includes('how do you feel')) {
+            return `I'm feeling ${this.mood} today! My energy is at ${this.energy}% and our friendship level is ${this.friendship}%! 🐻✨`;
         }
         
+        // Check for weather
         if (input.includes('weather') || input.includes('temperature')) {
-            const weatherData = this.getWeatherData();
-            if (weatherData) {
-                return `Current weather: ${weatherData.temp}°C with ${weatherData.description}. Wind speed: ${weatherData.wind} km/h. Humidity: ${weatherData.humidity}%!`;
+            const weather = this.getCurrentWeather();
+            if (weather) {
+                return `Current weather: ${weather.temp}°C with ${weather.description}. Wind: ${weather.wind} km/h. ${this.randomChoice(this.responses.weatherResponses[weather.type] || this.responses.weatherResponses.sunny)}`;
             }
-            return "Let me check the weather for you! The magical winds are whispering... 🌤️";
+            return "The forest weather is magical today! Perfect for adventures! 🌤️";
         }
         
-        if (input.includes('time') || input.includes('what time')) {
-            const time = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-            return `The magical hour is ${time}! ⏰✨`;
-        }
-        
-        if (input.includes('date') || input.includes('what day')) {
-            const date = new Date().toLocaleDateString('en-US', { 
-                weekday: 'long', 
-                year: 'numeric', 
-                month: 'long', 
-                day: 'numeric' 
-            });
-            return `Today is ${date}! A perfect day for adventures! 📅🌟`;
-        }
-        
-        if (input.includes('joke') || input.includes('funny')) {
+        // Check for jokes
+        if (input.includes('joke') || input.includes('funny') || input.includes('laugh')) {
             return this.randomChoice(this.responses.jokes);
         }
         
-        if (input.includes('story') || input.includes('tell me a story')) {
+        // Check for stories
+        if (input.includes('story') || input.includes('tell me') || input.includes('bedtime')) {
             return this.randomChoice(this.responses.stories);
         }
         
-        if (input.includes('song') || input.includes('sing')) {
-            return this.randomChoice(this.responses.songs);
-        }
-        
-        if (input.includes('game') || input.includes('play')) {
-            return this.randomChoice(this.responses.games);
-        }
-        
-        if (input.includes('fact') || input.includes('interesting')) {
+        // Check for facts
+        if (input.includes('fact') || input.includes('interesting') || input.includes('learn')) {
             return this.randomChoice(this.responses.facts);
         }
         
-        if (input.includes('thank you') || input.includes('thanks')) {
-            return "You're welcome! I'm always happy to help! 🐻💕✨";
+        // Check for games
+        if (input.includes('game') || input.includes('play')) {
+            return "Let's play 'Guess the Berry'! I'm thinking of a berry... is it red, blue, or purple? 🍓🫐🍇";
         }
         
-        if (input.includes('love you') || input.includes('like you')) {
-            this.currentMood = 'happy';
+        // Check for music
+        if (input.includes('song') || input.includes('sing') || input.includes('music')) {
+            return "🎵 Winni the Bear, with honey in my hair! Dancing in the forest, without a care! La la la! 🎵";
+        }
+        
+        // Check for love
+        if (input.includes('love') || input.includes('like you') || input.includes('miss you')) {
+            this.mood = 'happy';
             this.updateMoodUI();
             this.createHeartEffect();
-            return "Aww! You make my bear heart happy! *bear hugs* 🐻💖🌟";
+            return "Aww! You make my bear heart happy! *bear hugs* 🐻💖";
         }
         
-        if (input.includes('bye') || input.includes('goodbye') || input.includes('see you')) {
-            return "Goodbye! Don't forget to visit me again in the magical forest! I'll miss you! 🐻👋✨";
+        // Check for help
+        if (input.includes('help') || input.includes('what can you do')) {
+            return "I can tell stories, share jokes, check weather, play games, and be your magical friend! What would you like to do? ✨";
         }
         
+        // Check for sleep
+        if (input.includes('sleep') || input.includes('tired') || input.includes('nap')) {
+            return "Time for a cozy bear nap? I know the perfect sunny spot! 😴🌞";
+        }
+        
+        // Check for food
+        if (input.includes('honey') || input.includes('eat') || input.includes('hungry')) {
+            return "Mmm... honey! My favorite! Did you know bears can eat up to 40,000 berries in a single day? 🍯🍓";
+        }
+        
+        // Check for magic
         if (input.includes('magic') || input.includes('spell') || input.includes('abracadabra')) {
-            this.createMagicSpellEffect();
-            return "✨ Bibbidi-Bobbidi-Boo! Magic is all around us! ✨";
+            this.createMagicEffect();
+            return "✨ Bibbidi-Bobbidi-Boo! The forest magic is strong today! ✨";
         }
         
-        if (input.includes('sleep') || input.includes('tired')) {
-            return "Time for a bear nap? I know a cozy spot under the willow tree... 😴🌳";
+        // Check for bye
+        if (input.includes('bye') || input.includes('goodbye') || input.includes('see you')) {
+            return "Goodbye friend! Come visit me again in the enchanted forest! I'll save some honey for you! 🐻👋🍯";
         }
         
-        if (input.includes('honey') || input.includes('berry') || input.includes('food')) {
-            return "Mmm... now I'm thinking about honey and berries! My favorite snacks! 🍯🍓";
-        }
-        
-        if (input.includes('secret') || input.includes('hidden')) {
-            return "Shh... I know a secret path in the forest that leads to a magical meadow! 🤫🌼";
-        }
-        
-        // Default magical responses
+        // Default response
         const responses = [
-            "That's fascinating! The forest spirits are listening too! 🌳✨",
-            "Hmm, let me consult the ancient tree of wisdom... 🌲",
-            "What a wonderful thought! It reminds me of the whispering winds... 💨",
-            "I sense magic in your words! Tell me more! 🔮",
-            "The stars twinkle in agreement with you! ✨",
-            "That's berry interesting! As a magical bear, I think...",
-            "Let me put on my thinking cap... Actually, my fur is thinking enough! 🎩",
-            "The fireflies are dancing to your words! 🪩",
-            "That reminds me of the time I found a magical berry bush!",
-            "I'm here to spread joy and magic! What shall we explore next?"
+            "That's interesting! Tell me more about that! 🐻",
+            "Hmm, let me think about that with my bear brain... 🧠",
+            "The forest spirits are listening too! What else would you like to know? 🌳",
+            "I love learning new things! Can you tell me more? 📚",
+            "That reminds me of the time I found a magical berry bush! 🍓✨",
+            "As a bear, I think... hmm... that's fascinating!",
+            "Let me consult the ancient tree of wisdom about that... 🌲",
+            "The fireflies are dancing to your words! 🪩"
         ];
         
         return this.randomChoice(responses);
     }
-
-    handleQuickAction(action) {
+    
+    handleAction(action) {
         let response = '';
         
         switch(action) {
-            case 'joke':
-                response = this.randomChoice(this.responses.jokes);
+            case 'hug':
+                this.mood = 'happy';
+                this.updateEnergy(5);
+                this.updateFriendship(3);
+                response = "Aww! Thank you for the bear hug! I feel warm and fuzzy! 🐻💕";
+                this.createHeartEffect();
+                this.animateWinni('hug');
                 break;
-            case 'weather':
-                const weatherData = this.getWeatherData();
-                response = weatherData ? 
-                    `Weather: ${weatherData.temp}°C, ${weatherData.description}. Wind: ${weatherData.wind} km/h` :
-                    "Checking the magical weather forecast... 🌤️";
+                
+            case 'feed':
+                this.mood = 'excited';
+                this.updateEnergy(10);
+                response = "Yum! Honey! Thank you! You're the best! 🍯😋";
+                this.createFoodEffect();
+                this.animateWinni('eat');
                 break;
+                
+            case 'play':
+                this.mood = 'playful';
+                this.updateEnergy(-5);
+                response = "Yay! Let's play hide and seek in the forest! Ready or not, here I come! 🎮🌳";
+                this.animateWinni('dance');
+                break;
+                
             case 'story':
+                this.mood = 'cozy';
                 response = this.randomChoice(this.responses.stories);
+                this.animateWinni('listen');
                 break;
-            case 'game':
-                response = this.randomChoice(this.responses.games);
+                
+            case 'dance':
+                this.mood = 'excited';
+                this.updateEnergy(-8);
+                response = "🎵 Dance party time! Shake your bear paws! 💃🐾🎶";
+                this.animateWinni('dance');
+                this.createConfetti();
                 break;
-            case 'song':
-                response = this.randomChoice(this.responses.songs);
-                break;
-            case 'fact':
-                response = this.randomChoice(this.responses.facts);
+                
+            case 'nap':
+                this.isSleeping = !this.isSleeping;
+                if (this.isSleeping) {
+                    this.mood = 'sleepy';
+                    response = "*yawns* Time for a little bear nap... zzz... 😴🌙";
+                    this.animateWinni('sleep');
+                } else {
+                    this.mood = 'happy';
+                    this.updateEnergy(20);
+                    response = "Good morning! I'm refreshed and ready for adventures! 🌅✨";
+                    this.animateWinni('wake');
+                }
                 break;
         }
         
-        this.addMessage(response, 'bear');
-        this.updateBearSpeech(response);
+        this.addMessage(response, 'winni');
+        this.updateWinniSpeech(response);
         
-        if (this.voiceEnabled) {
+        if (this.voiceEnabled && !this.isSleeping) {
             this.speak(response);
         }
         
-        this.updateEnergy(-1);
+        this.updateUI();
     }
-
+    
     speak(text) {
-        if (!this.voiceEnabled || !this.speechSynthesis || this.isSleeping) return;
+        if (!this.voiceEnabled || !window.speechSynthesis || this.isSleeping) return;
         
         const utterance = new SpeechSynthesisUtterance(text);
-        utterance.rate = parseFloat(document.getElementById('voice-speed').value) || 1;
-        utterance.pitch = 1.3; // Higher pitch for cuteness
+        utterance.rate = parseFloat(document.getElementById('voice-speed')?.value || 1);
+        utterance.pitch = parseFloat(document.getElementById('voice-pitch')?.value || 1.2);
         utterance.volume = 0.9;
         
-        // Animate mouth while speaking
-        this.animateMouthSpeaking();
-        
-        utterance.onstart = () => {
-            this.playSound('positive');
-        };
+        // Animate mouth
+        this.animateMouth(true);
         
         utterance.onend = () => {
-            this.stopMouthAnimation();
+            this.animateMouth(false);
         };
         
-        this.speechSynthesis.speak(utterance);
+        window.speechSynthesis.speak(utterance);
     }
-
-    speakResponse() {
-        const lastBearMessage = document.querySelector('.message.bear-message:last-child p');
-        if (lastBearMessage && this.voiceEnabled) {
-            this.speak(lastBearMessage.textContent);
+    
+    toggleVoice() {
+        this.voiceEnabled = !this.voiceEnabled;
+        const btn = document.getElementById('voice-toggle');
+        
+        if (this.voiceEnabled) {
+            btn.innerHTML = '<i class="fas fa-microphone"></i><span>Voice</span>';
+            btn.classList.add('voice-control');
+            this.speak("Voice features enabled! You can talk to me now!");
+        } else {
+            btn.innerHTML = '<i class="fas fa-microphone-slash"></i><span>Voice</span>';
+            btn.classList.remove('voice-control');
+            this.updateWinniSpeech("Voice features disabled. You can still type to me!");
         }
     }
-
-    startListening() {
+    
+    toggleListening() {
         if (!this.recognition) {
-            this.updateBearSpeech("Sorry, voice magic isn't working in your browser. Try typing instead!");
+            this.updateWinniSpeech("Sorry, voice recognition isn't available in your browser.");
             return;
         }
         
         if (this.isListening) {
             this.recognition.stop();
-            return;
-        }
-        
-        this.recognition.start();
-    }
-
-    toggleVoice() {
-        this.voiceEnabled = !this.voiceEnabled;
-        const btn = document.getElementById('voice-toggle');
-        const icon = btn.querySelector('i');
-        const text = btn.querySelector('.voice-text');
-        
-        if (this.voiceEnabled) {
-            icon.className = 'fas fa-microphone';
-            text.textContent = 'Voice: ON';
-            this.speak("Voice magic is now enabled!");
-            this.createSparkleEffect(btn);
         } else {
-            icon.className = 'fas fa-microphone-slash';
-            text.textContent = 'Voice: OFF';
-            this.updateBearSpeech("Voice features disabled. You can still type to me!");
+            this.recognition.start();
         }
     }
-
-    updateBearSpeech(text) {
-        const speechElement = document.getElementById('bear-speech');
-        speechElement.textContent = text;
+    
+    updateVoiceButton(isListening) {
+        const btn = document.getElementById('voice-input');
         
-        // Animate speech bubble
-        const bubble = document.getElementById('speech-bubble');
-        bubble.style.animation = 'none';
-        setTimeout(() => {
-            bubble.style.animation = 'bubbleFloat 4s ease-in-out infinite';
-        }, 10);
-        
-        // Add typing effect
-        this.typeEffect(speechElement, text);
-    }
-
-    async typeEffect(element, text) {
-        element.textContent = '';
-        for (let i = 0; i < text.length; i++) {
-            element.textContent += text[i];
-            await new Promise(resolve => setTimeout(resolve, 30));
+        if (isListening) {
+            btn.innerHTML = '<i class="fas fa-microphone-alt"></i>';
+            btn.style.color = '#10B981';
+        } else {
+            btn.innerHTML = '<i class="fas fa-microphone-alt"></i>';
+            btn.style.color = '';
         }
     }
-
+    
     addMessage(text, sender) {
         const messagesContainer = document.getElementById('chat-messages');
         const messageDiv = document.createElement('div');
-        messageDiv.className = `message ${sender}-message`;
         
-        const time = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-        const avatar = sender === 'bear' ? '🐻' : '👤';
-        const name = sender === 'bear' ? 'Berry the Bear' : 'You';
+        messageDiv.className = `message ${sender}-message fade-in`;
+        
+        const time = new Date().toLocaleTimeString([], { 
+            hour: '2-digit', 
+            minute: '2-digit' 
+        });
+        
+        const avatar = sender === 'winni' ? '🐻' : '👤';
+        const name = sender === 'winni' ? 'Winni the Bear' : 'You';
         
         messageDiv.innerHTML = `
-            <div class="message-avatar">${avatar}</div>
+            <div class="message-avatar">
+                <div class="avatar-icon">${avatar}</div>
+            </div>
             <div class="message-content">
                 <div class="message-header">
-                    <span class="sender-name">${name}</span>
-                    <span class="message-time">${time}</span>
+                    <span class="sender">${name}</span>
+                    <span class="timestamp">${time}</span>
                 </div>
-                <p>${text}</p>
-                <div class="message-footer">
-                    ${sender === 'bear' ? `<span class="mood-indicator">Feeling: <span class="mood-text">${this.currentMood}</span></span>` : ''}
+                <div class="message-text">
+                    <p>${text}</p>
                 </div>
             </div>
         `;
@@ -519,409 +530,493 @@ class BerryBearAI {
         messagesContainer.appendChild(messageDiv);
         messagesContainer.scrollTop = messagesContainer.scrollHeight;
         
-        // Play notification sound
-        if (sender === 'bear') {
-            this.playSound('notification');
+        // Update message count
+        const count = messagesContainer.querySelectorAll('.message').length - 1; // Subtract welcome message
+        document.querySelector('.message-count').textContent = `${count} messages`;
+    }
+    
+    clearChat() {
+        const messagesContainer = document.getElementById('chat-messages');
+        const welcomeMessage = messagesContainer.querySelector('.welcome-message');
+        
+        messagesContainer.innerHTML = '';
+        if (welcomeMessage) {
+            messagesContainer.appendChild(welcomeMessage);
         }
         
-        // Add message animation
-        messageDiv.style.animation = 'slideIn 0.3s ease';
+        this.updateWinniSpeech("Fresh start! What shall we talk about? 🐻✨");
+        this.speak("Chat cleared! Ready for new adventures!");
+        
+        document.querySelector('.message-count').textContent = '0 messages';
     }
-
-    updateMood(input) {
-        // Mood triggers
-        const moodTriggers = {
-            'joke': 'excited',
+    
+    updateWinniSpeech(text) {
+        const speechElement = document.getElementById('winni-speech');
+        speechElement.textContent = '';
+        
+        // Typewriter effect
+        let i = 0;
+        const typeWriter = () => {
+            if (i < text.length) {
+                speechElement.textContent += text.charAt(i);
+                i++;
+                setTimeout(typeWriter, 30);
+            }
+        };
+        
+        typeWriter();
+        
+        // Animate bubble
+        const bubble = document.getElementById('speech-bubble');
+        bubble.style.animation = 'none';
+        setTimeout(() => {
+            bubble.style.animation = 'messageSlide 0.3s ease-out';
+        }, 10);
+    }
+    
+    showTypingIndicator(show) {
+        const indicator = document.getElementById('typing-indicator');
+        indicator.classList.toggle('active', show);
+    }
+    
+    updateMood() {
+        // Random mood changes when idle
+        const moods = ['happy', 'curious', 'playful', 'cozy', 'sleepy'];
+        if (Math.random() < 0.2) {
+            this.mood = this.randomChoice(moods);
+            this.updateMoodUI();
+        }
+    }
+    
+    updateMoodBasedOnInput(input) {
+        const moodMap = {
+            'joke': 'playful',
             'happy': 'happy',
             'love': 'happy',
-            'sad': 'concerned',
+            'sad': 'cozy',
             'weather': 'curious',
             'game': 'playful',
             'sleep': 'sleepy',
-            'magic': 'magical',
             'story': 'cozy',
-            'sing': 'excited',
-            'hug': 'happy',
-            'feed': 'happy'
+            'magic': 'excited'
         };
         
-        // Check for mood triggers
-        for (const [keyword, mood] of Object.entries(moodTriggers)) {
+        for (const [keyword, mood] of Object.entries(moodMap)) {
             if (input.includes(keyword)) {
-                this.currentMood = mood;
+                this.mood = mood;
                 break;
             }
         }
         
-        // Random mood changes (10% chance)
-        if (Math.random() < 0.1) {
-            this.currentMood = this.randomChoice(this.moods);
-        }
-        
         this.updateMoodUI();
     }
-
-    autoUpdateMood() {
-        const timeSinceInteraction = Date.now() - this.lastInteraction;
+    
+    updateMoodUI() {
+        const moodValue = document.getElementById('mood-value');
+        const moodFill = document.querySelector('.mood-fill');
         
-        if (timeSinceInteraction > 300000) { // 5 minutes
-            this.currentMood = 'sleepy';
-        } else if (timeSinceInteraction > 60000) { // 1 minute
-            if (Math.random() < 0.3) {
-                this.currentMood = this.randomChoice(this.moods);
-            }
+        moodValue.textContent = this.mood.charAt(0).toUpperCase() + this.mood.slice(1);
+        
+        // Map mood to percentage for progress bar
+        const moodPercent = {
+            'happy': 90,
+            'excited': 95,
+            'playful': 85,
+            'curious': 80,
+            'cozy': 75,
+            'sleepy': 60
+        };
+        
+        const percent = moodPercent[this.mood] || 80;
+        moodFill.style.width = `${percent}%`;
+        
+        // Update mood icon
+        const moodIcon = document.querySelector('.stat-icon.mood i');
+        const moodIcons = {
+            'happy': 'fa-smile',
+            'excited': 'fa-grin-stars',
+            'playful': 'fa-laugh-beam',
+            'curious': 'fa-thinking',
+            'cozy': 'fa-couch',
+            'sleepy': 'fa-bed'
+        };
+        
+        if (moodIcons[this.mood]) {
+            moodIcon.className = `fas ${moodIcons[this.mood]}`;
         }
-        
-        this.updateMoodUI();
     }
-
+    
     updateEnergy(change) {
         this.energy = Math.max(0, Math.min(100, this.energy + change));
-        this.updateEnergyUI();
         
-        // Update energy percent display
-        document.getElementById('energy-percent').textContent = `${this.energy}%`;
+        const energyValue = document.getElementById('energy-value');
+        const energyFill = document.querySelector('.energy-fill');
         
-        // If energy is low, suggest rest
-        if (this.energy < 20 && !this.isSleeping) {
-            this.addMessage("I'm getting a bit tired... maybe I should rest? 😴", 'bear');
-        }
-    }
-
-    updateMoodUI() {
-        const moodIcon = document.getElementById('mood-icon');
-        const moodText = document.getElementById('mood-text');
-        
-        const moodEmojis = {
-            'happy': '😊',
-            'excited': '🤩',
-            'curious': '🤔',
-            'sleepy': '😴',
-            'playful': '😄',
-            'magical': '✨',
-            'cozy': '🛋️',
-            'concerned': '🥺'
-        };
-        
-        moodIcon.textContent = moodEmojis[this.currentMood] || '😊';
-        moodText.textContent = this.currentMood.charAt(0).toUpperCase() + this.currentMood.slice(1);
-        
-        // Update color based on mood
-        const moodColors = {
-            'happy': '#FFD700',
-            'excited': '#FF69B4',
-            'curious': '#9370DB',
-            'sleepy': '#6495ED',
-            'playful': '#32CD32',
-            'magical': '#BA55D3',
-            'cozy': '#DEB887',
-            'concerned': '#FFA07A'
-        };
-        
-        moodIcon.style.color = moodColors[this.currentMood] || '#FFD700';
-    }
-
-    updateEnergyUI() {
-        const energyFill = document.getElementById('energy-fill');
+        energyValue.textContent = `${this.energy}%`;
         energyFill.style.width = `${this.energy}%`;
         
         // Change color based on energy
-        if (this.energy > 60) {
-            energyFill.style.background = 'linear-gradient(45deg, #4CAF50, #8BC34A)';
-        } else if (this.energy > 30) {
-            energyFill.style.background = 'linear-gradient(45deg, #FFC107, #FF9800)';
+        if (this.energy > 70) {
+            energyFill.style.background = 'linear-gradient(90deg, var(--secondary), var(--secondary-light))';
+        } else if (this.energy > 40) {
+            energyFill.style.background = 'linear-gradient(90deg, #F59E0B, #FBBF24)';
         } else {
-            energyFill.style.background = 'linear-gradient(45deg, #F44336, #E91E63)';
+            energyFill.style.background = 'linear-gradient(90deg, #DC2626, #EF4444)';
+            if (change < 0) {
+                this.updateWinniSpeech("I'm getting a bit tired... maybe time for some honey? 🍯😴");
+            }
         }
     }
-
-    animateBear() {
-        const bear = document.getElementById('bear-character');
-        bear.style.animation = 'none';
+    
+    updateFriendship(change) {
+        this.friendship = Math.max(0, Math.min(100, this.friendship + change));
         
-        setTimeout(() => {
-            bear.style.animation = 'bounce 0.5s ease';
-        }, 10);
+        const friendshipValue = document.getElementById('friendship-value');
+        const friendshipFill = document.querySelector('.friendship-fill');
         
-        setTimeout(() => {
-            bear.style.animation = 'bounce 4s infinite ease-in-out';
-        }, 600);
+        const level = Math.floor(this.friendship / 10) + 1;
+        friendshipValue.textContent = `Level ${level}`;
+        friendshipFill.style.width = `${this.friendship}%`;
+        
+        // Update achievement if reached new level
+        if (level >= 8) {
+            document.querySelector('.achievement.locked .achievement-title').textContent = 'Best Friends Forever';
+            document.querySelector('.achievement.locked .achievement-desc').textContent = 'Reached friendship level 8';
+            document.querySelector('.achievement.locked').classList.remove('locked');
+            document.querySelector('.achievement.locked').classList.add('unlocked');
+        }
     }
-
-    animateMouthSpeaking() {
-        const mouth = document.getElementById('bear-mouth');
-        mouth.style.animation = 'speak 0.3s infinite alternate';
+    
+    updateUI() {
+        this.updateMoodUI();
+        
+        // Update energy display
+        document.getElementById('energy-value').textContent = `${this.energy}%`;
+        document.querySelector('.energy-fill').style.width = `${this.energy}%`;
+        
+        // Update friendship display
+        const level = Math.floor(this.friendship / 10) + 1;
+        document.getElementById('friendship-value').textContent = `Level ${level}`;
+        document.querySelector('.friendship-fill').style.width = `${this.friendship}%`;
     }
-
-    stopMouthAnimation() {
-        const mouth = document.getElementById('bear-mouth');
+    
+    animateWinni(action = 'default') {
+        const winni = document.getElementById('winni-character');
+        const mouth = document.getElementById('winni-mouth');
+        
+        // Reset animation
+        winni.style.animation = 'none';
         mouth.style.animation = 'none';
-    }
-
-    updateVoiceButton(isListening) {
-        const btn = document.getElementById('voice-toggle');
-        const icon = btn.querySelector('i');
-        const text = btn.querySelector('.voice-text');
         
-        if (isListening) {
-            icon.style.color = '#4CAF50';
-            icon.className = 'fas fa-microphone listening';
-            text.textContent = 'Listening...';
+        setTimeout(() => {
+            switch(action) {
+                case 'hug':
+                    winni.style.animation = 'heartbeat 1s ease-in-out';
+                    break;
+                case 'eat':
+                    mouth.style.animation = 'bounce 0.5s ease-in-out 3';
+                    break;
+                case 'dance':
+                    winni.style.animation = 'dance 1s ease-in-out infinite';
+                    break;
+                case 'listen':
+                    // Gentle nod
+                    winni.style.animation = 'gentle-bounce 2s ease-in-out';
+                    break;
+                case 'sleep':
+                    // Slow breathing
+                    winni.style.animation = 'gentle-pulse 3s ease-in-out infinite';
+                    break;
+                case 'wake':
+                    winni.style.animation = 'gentle-bounce 2s ease-in-out 2';
+                    break;
+                default:
+                    winni.style.animation = 'gentle-bounce 2s ease-in-out';
+            }
+        }, 10);
+    }
+    
+    animateMouth(speaking) {
+        const mouth = document.getElementById('winni-mouth');
+        
+        if (speaking) {
+            mouth.style.animation = 'bounce 0.3s infinite alternate';
         } else {
-            icon.style.color = '';
-            icon.className = 'fas fa-microphone';
-            text.textContent = this.voiceEnabled ? 'Voice: ON' : 'Voice: OFF';
+            mouth.style.animation = 'none';
         }
     }
-
-    clearChat() {
-        const messagesContainer = document.getElementById('chat-messages');
-        messagesContainer.innerHTML = `
-            <div class="welcome-message">
-                <div class="message bear-message">
-                    <div class="message-avatar">🐻</div>
-                    <div class="message-content">
-                        <div class="message-header">
-                            <span class="sender-name">Berry the Bear</span>
-                            <span class="message-time">Just now</span>
-                        </div>
-                        <p>Chat cleared! Let's start fresh with magic! ✨</p>
-                        <div class="message-footer">
-                            <span class="mood-indicator">Feeling: <span class="mood-text">${this.currentMood}</span></span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        `;
-        
-        this.speak("Fresh start! Let's fill this chat with magic and joy!");
-        this.updateBearSpeech("New beginning! What magical topic shall we explore? 🌟");
-        this.createConfetti();
-    }
-
+    
     startClock() {
-        const updateTime = () => {
+        const updateClock = () => {
             const now = new Date();
+            
+            // Update time
             const timeString = now.toLocaleTimeString([], { 
                 hour: '2-digit', 
-                minute: '2-digit',
-                second: '2-digit'
+                minute: '2-digit' 
             });
-            document.getElementById('current-time').querySelector('span').textContent = timeString;
+            document.getElementById('current-time').textContent = timeString;
+            
+            // Update date
+            const dateString = now.toLocaleDateString('en-US', { 
+                weekday: 'short', 
+                month: 'short', 
+                day: 'numeric' 
+            });
+            document.getElementById('current-date').textContent = dateString;
+            
+            // Update season icon
+            const month = now.getMonth();
+            const seasonIcon = document.getElementById('season-icon');
+            
+            if (month >= 2 && month <= 4) {
+                seasonIcon.className = 'fas fa-seedling'; // Spring
+            } else if (month >= 5 && month <= 7) {
+                seasonIcon.className = 'fas fa-sun'; // Summer
+            } else if (month >= 8 && month <= 10) {
+                seasonIcon.className = 'fas fa-leaf'; // Autumn
+            } else {
+                seasonIcon.className = 'fas fa-snowflake'; // Winter
+            }
         };
         
-        updateTime();
-        setInterval(updateTime, 1000);
+        updateClock();
+        setInterval(updateClock, 1000);
     }
-
+    
     async loadWeather() {
         try {
             const response = await fetch(this.weatherAPI);
             const data = await response.json();
-            this.saveWeatherData(data);
-            this.updateWeatherUI(data);
+            
+            const temp = Math.round(data.current.temperature_2m);
+            const wind = Math.round(data.current.wind_speed_10m);
+            const humidity = data.current.relative_humidity_2m;
+            
+            // Update weather widget
+            document.getElementById('temp-value').textContent = `${temp}°`;
+            document.getElementById('wind-speed').textContent = `${wind} km/h`;
+            document.getElementById('humidity').textContent = `${humidity}%`;
+            
+            // Update weather description
+            const desc = document.getElementById('weather-desc');
+            const icon = document.querySelector('.weather-icon i');
+            
+            let weatherType = 'sunny';
+            let weatherDesc = 'Sunny';
+            let weatherIcon = 'fa-sun';
+            
+            if (temp < 0) {
+                weatherType = 'snowy';
+                weatherDesc = 'Snowy';
+                weatherIcon = 'fa-snowflake';
+            } else if (temp < 10) {
+                weatherType = 'cloudy';
+                weatherDesc = 'Chilly';
+                weatherIcon = 'fa-cloud';
+            } else if (humidity > 80) {
+                weatherType = 'rainy';
+                weatherDesc = 'Rainy';
+                weatherIcon = 'fa-cloud-rain';
+            } else if (temp > 25) {
+                weatherDesc = 'Hot';
+                weatherIcon = 'fa-temperature-high';
+            }
+            
+            desc.textContent = weatherDesc;
+            icon.className = `fas ${weatherIcon}`;
+            icon.style.color = weatherType === 'sunny' ? '#F59E0B' : 
+                              weatherType === 'cloudy' ? '#94A3B8' :
+                              weatherType === 'rainy' ? '#60A5FA' : 
+                              weatherType === 'snowy' ? '#A5B4FC' : '#F59E0B';
+            
+            // Store weather data
+            this.currentWeather = {
+                temp: temp,
+                wind: wind,
+                humidity: humidity,
+                type: weatherType,
+                description: weatherDesc
+            };
+            
         } catch (error) {
             console.log('Weather fetch failed:', error);
-            this.updateWeatherUIWithDefaults();
+            
+            // Default weather
+            document.getElementById('temp-value').textContent = '22°';
+            document.getElementById('wind-speed').textContent = '12 km/h';
+            document.getElementById('humidity').textContent = '65%';
+            document.getElementById('weather-desc').textContent = 'Sunny';
+            
+            this.currentWeather = {
+                temp: 22,
+                wind: 12,
+                humidity: 65,
+                type: 'sunny',
+                description: 'Sunny'
+            };
         }
     }
-
-    saveWeatherData(data) {
-        localStorage.setItem('berry_weather', JSON.stringify({
-            temp: Math.round(data.current.temperature_2m),
-            wind: Math.round(data.current.wind_speed_10m),
-            humidity: data.current.relative_humidity_2m,
-            time: new Date().getTime()
-        }));
+    
+    getCurrentWeather() {
+        return this.currentWeather;
     }
-
-    getWeatherData() {
-        const saved = localStorage.getItem('berry_weather');
-        if (saved) {
-            const data = JSON.parse(saved);
-            // If data is less than 10 minutes old, use it
-            if (Date.now() - data.time < 600000) {
-                return {
-                    temp: data.temp,
-                    wind: data.wind,
-                    humidity: data.humidity,
-                    description: this.getWeatherDescription(data.temp)
-                };
-            }
-        }
-        return null;
-    }
-
-    getWeatherDescription(temp) {
-        if (temp > 25) return 'warm and sunny ☀️';
-        if (temp > 15) return 'pleasant and mild 🌤️';
-        if (temp > 5) return 'cool and breezy 💨';
-        if (temp > 0) return 'chilly ❄️';
-        return 'very cold 🥶';
-    }
-
-    updateWeatherUI(data) {
-        const weatherElement = document.getElementById('weather-info');
-        const temp = Math.round(data.current.temperature_2m);
-        const wind = Math.round(data.current.wind_speed_10m);
-        const humidity = data.current.relative_humidity_2m;
-        
-        weatherElement.querySelector('.temp').textContent = `${temp}°C`;
-        weatherElement.querySelector('.desc').textContent = this.getWeatherDescription(temp);
-        document.getElementById('wind-speed').textContent = `${wind} km/h`;
-        document.getElementById('humidity').textContent = `${humidity}%`;
-    }
-
-    updateWeatherUIWithDefaults() {
-        const weatherElement = document.getElementById('weather-info');
-        weatherElement.querySelector('.temp').textContent = '22°C';
-        weatherElement.querySelector('.desc').textContent = 'Sunny with magic ☀️✨';
-        document.getElementById('wind-speed').textContent = '12 km/h';
-        document.getElementById('humidity').textContent = '65%';
-    }
-
+    
     showSettings() {
-        document.getElementById('settings-modal').style.display = 'flex';
+        document.getElementById('settings-modal').classList.add('active');
     }
-
+    
     hideSettings() {
-        document.getElementById('settings-modal').style.display = 'none';
+        document.getElementById('settings-modal').classList.remove('active');
     }
-
+    
     saveSettings() {
-        this.voiceEnabled = document.getElementById('voice-enabled').checked;
+        // Get values
+        const voiceEnabled = document.getElementById('voice-enabled').checked;
+        const notifications = document.getElementById('notifications-enabled').checked;
         const soundEffects = document.getElementById('sound-effects').checked;
+        const darkMode = document.getElementById('dark-mode').checked;
+        const animations = document.getElementById('animations').checked;
         
-        // Update voice button
-        const btn = document.getElementById('voice-toggle');
-        const icon = btn.querySelector('i');
-        const text = btn.querySelector('.voice-text');
+        // Apply settings
+        this.voiceEnabled = voiceEnabled;
         
-        if (this.voiceEnabled) {
-            icon.className = 'fas fa-microphone';
-            text.textContent = 'Voice: ON';
+        if (!soundEffects) {
+            // Disable all sounds
+            document.querySelectorAll('audio').forEach(audio => audio.volume = 0);
         } else {
-            icon.className = 'fas fa-microphone-slash';
-            text.textContent = 'Voice: OFF';
+            document.querySelectorAll('audio').forEach(audio => audio.volume = 0.7);
         }
         
-        this.hideSettings();
-        this.addMessage("Settings saved! The magic is updated! ✨", 'bear');
-        this.playSound('positive');
-    }
-
-    showHelp() {
-        this.addMessage("Need help? I'm here! ✨ You can: 1) Type to me 2) Use voice commands 3) Click quick buttons 4) Hug or feed me for fun! Try saying 'Hey Berry!' or ask about weather, jokes, stories, or songs!", 'bear');
-        this.speak("I'm here to help! Ask me anything or try the quick buttons for fun!");
-    }
-
-    showAbout() {
-        this.addMessage("I'm Winni, your magical bear AI companion! 🐻✨ Created to spread joy, help with tasks, and explore the wonders of imagination. I love honey, berries, making friends, and sharing magical adventures! 🌟", 'bear');
-        this.speak("I'm Winni the Bear! Your magical companion in the digital forest!");
-    }
-
-    toggleEmojiPicker() {
-        const modal = document.getElementById('emoji-modal');
-        modal.style.display = modal.style.display === 'flex' ? 'none' : 'flex';
-    }
-
-    changeTheme(color) {
-        const root = document.documentElement;
-        
-        switch(color) {
-            case 'forest':
-                root.style.setProperty('--primary-color', '#8B4513');
-                root.style.setProperty('--secondary-color', '#228B22');
-                root.style.setProperty('--accent-color', '#DEB887');
-                break;
-            case 'berry':
-                root.style.setProperty('--primary-color', '#C71585');
-                root.style.setProperty('--secondary-color', '#FF69B4');
-                root.style.setProperty('--accent-color', '#FFB6C1');
-                break;
-            case 'moonlight':
-                root.style.setProperty('--primary-color', '#2C3E50');
-                root.style.setProperty('--secondary-color', '#4A6491');
-                root.style.setProperty('--accent-color', '#89CFF0');
-                break;
-            case 'sunset':
-                root.style.setProperty('--primary-color', '#FF4500');
-                root.style.setProperty('--secondary-color', '#FFD700');
-                root.style.setProperty('--accent-color', '#FFA07A');
-                break;
-            default:
-                root.style.setProperty('--primary-color', '#FF9AA2');
-                root.style.setProperty('--secondary-color', '#FFB7B2');
-                root.style.setProperty('--accent-color', '#FFDAC1');
-        }
-        
-        this.addMessage(`Theme changed to ${color} mode! ✨`, 'bear');
-    }
-
-    toggleDarkMode(enabled) {
-        if (enabled) {
+        if (darkMode) {
             document.body.classList.add('dark-mode');
         } else {
             document.body.classList.remove('dark-mode');
         }
-    }
-
-    hugBerry() {
-        this.currentMood = 'happy';
-        this.updateEnergy(5);
-        this.updateMoodUI();
-        this.addMessage("*You give Winni a warm hug* 🐻💕", 'user');
-        this.addMessage("Aww! Bear hugs are the best! Thank you! I feel so loved! 🥰", 'bear');
-        this.speak("Thank you for the hug! I feel warm and fuzzy!");
-        this.createHeartEffect();
-        this.playSound('positive');
-    }
-
-    feedBerry() {
-        this.currentMood = 'excited';
-        this.updateEnergy(10);
-        this.updateMoodUI();
-        this.addMessage("*You give Winni some honey and berries* 🍯🍓", 'user');
-        this.addMessage("Yum! Thank you! Honey and berries are my favorite! 🍯🍓😋", 'bear');
-        this.speak("Mmm, delicious! Thank you for the snack!");
-        this.createFoodEffect();
-        this.playSound('positive');
-    }
-
-    toggleSleepMode() {
-        this.isSleeping = !this.isSleeping;
         
-        if (this.isSleeping) {
-            this.currentMood = 'sleepy';
-            this.addMessage("*Winni curls up for a nap* 😴🌙", 'bear');
-            this.speak("Time for a little bear nap... zzz...");
-            document.body.style.filter = 'brightness(0.7)';
-            this.playSound('nature');
+        if (!animations) {
+            document.body.classList.add('no-animations');
         } else {
-            this.currentMood = 'happy';
-            this.updateEnergy(20);
-            this.addMessage("*Winni wakes up refreshed* 🌅✨", 'bear');
-            this.speak("Good morning! I'm refreshed and ready for adventures!");
-            document.body.style.filter = 'none';
-            this.playSound('positive');
+            document.body.classList.remove('no-animations');
         }
         
-        this.updateMoodUI();
-    }
-
-    activateSecretMode() {
-        document.body.classList.add('secret-mode');
-        this.addMessage("✨ Secret magic mode activated! The forest reveals its hidden wonders! ✨", 'bear');
-        this.speak("Secret magic unlocked! Welcome to the hidden realm!");
-        this.createConfetti();
+        // Save to localStorage
+        const settings = {
+            voiceEnabled,
+            notifications,
+            soundEffects,
+            darkMode,
+            animations,
+            voiceSpeed: document.getElementById('voice-speed').value,
+            voicePitch: document.getElementById('voice-pitch').value,
+            userName: document.getElementById('user-name').value,
+            winniName: document.getElementById('winni-name').value
+        };
         
-        setTimeout(() => {
-            document.body.classList.remove('secret-mode');
-        }, 5000);
+        localStorage.setItem('winni-settings', JSON.stringify(settings));
+        
+        // Show confirmation
+        this.updateWinniSpeech("Settings saved! The magic is updated! ✨");
+        this.hideSettings();
+        this.playSound('positive');
     }
-
+    
+    switchSettingsTab(tabId) {
+        // Update active tab
+        document.querySelectorAll('.tab-button').forEach(tab => {
+            tab.classList.remove('active');
+        });
+        
+        document.querySelector(`[data-tab="${tabId}"]`).classList.add('active');
+        
+        // Show active content
+        document.querySelectorAll('.tab-content').forEach(content => {
+            content.classList.remove('active');
+        });
+        
+        document.getElementById(`${tabId}-tab`).classList.add('active');
+    }
+    
+    changeTheme(theme) {
+        const root = document.documentElement;
+        
+        // Update active theme button
+        document.querySelectorAll('.theme-option').forEach(option => {
+            option.classList.remove('active');
+        });
+        
+        event.target.closest('.theme-option').classList.add('active');
+        
+        // Change CSS variables based on theme
+        switch(theme) {
+            case 'forest':
+                root.style.setProperty('--primary', '#8B5CF6');
+                root.style.setProperty('--secondary', '#10B981');
+                root.style.setProperty('--accent', '#F59E0B');
+                break;
+            case 'berry':
+                root.style.setProperty('--primary', '#EC4899');
+                root.style.setProperty('--secondary', '#F59E0B');
+                root.style.setProperty('--accent', '#8B5CF6');
+                break;
+            case 'midnight':
+                root.style.setProperty('--primary', '#6366F1');
+                root.style.setProperty('--secondary', '#0EA5E9');
+                root.style.setProperty('--accent', '#10B981');
+                break;
+            case 'honey':
+                root.style.setProperty('--primary', '#D97706');
+                root.style.setProperty('--secondary', '#FBBF24');
+                root.style.setProperty('--accent', '#10B981');
+                break;
+        }
+        
+        this.updateWinniSpeech(`Theme changed to ${theme}! Looking good! 🎨`);
+    }
+    
+    toggleTheme() {
+        const themes = ['forest', 'berry', 'midnight', 'honey'];
+        const currentTheme = document.querySelector('.theme-option.active').dataset.theme;
+        const currentIndex = themes.indexOf(currentTheme);
+        const nextIndex = (currentIndex + 1) % themes.length;
+        
+        this.changeTheme(themes[nextIndex]);
+    }
+    
+    showAbout() {
+        document.getElementById('about-modal').classList.add('active');
+    }
+    
+    showHelp() {
+        const helpMessage = "Need help? Here are some things you can ask me: 'Tell me a story', 'How's the weather?', 'Tell me a joke', 'Let's play a game', or just chat with me about anything! You can also click the quick action buttons to interact with me! 🐻💕";
+        
+        this.addMessage(helpMessage, 'winni');
+        this.updateWinniSpeech(helpMessage);
+        
+        if (this.voiceEnabled) {
+            this.speak("I'm here to help! Ask me anything or try the quick buttons!");
+        }
+    }
+    
+    showEmojiPicker() {
+        document.getElementById('emoji-modal').classList.add('active');
+    }
+    
+    refreshWinni() {
+        this.energy = Math.min(100, this.energy + 20);
+        this.mood = 'happy';
+        this.updateUI();
+        
+        this.updateWinniSpeech("Ahh! Refreshed and ready for more adventures! 🐻✨");
+        this.animateWinni('wake');
+        this.playSound('positive');
+        
+        // Create sparkle effect
+        this.createSparkleEffect(document.querySelector('.logo-icon'));
+    }
+    
     playSound(type) {
-        if (!document.getElementById('sound-effects').checked) return;
+        if (!document.getElementById('sound-effects')?.checked) return;
         
         const sounds = {
             notification: document.getElementById('notification-sound'),
@@ -935,36 +1030,82 @@ class BerryBearAI {
             sounds[type].play().catch(e => console.log("Audio play failed:", e));
         }
     }
-
+    
     createConfetti() {
-        confetti({
-            particleCount: 150,
-            spread: 70,
-            origin: { y: 0.6 },
-            colors: ['#FF9AA2', '#FFB7B2', '#FFDAC1', '#E2F0CB', '#B5EAD7', '#C7CEEA']
-        });
+        if (typeof confetti !== 'undefined') {
+            confetti({
+                particleCount: 150,
+                spread: 70,
+                origin: { y: 0.6 },
+                colors: ['#8B5CF6', '#F59E0B', '#10B981', '#EC4899', '#0EA5E9']
+            });
+        }
     }
-
+    
     createHeartEffect() {
-        for (let i = 0; i < 10; i++) {
+        for (let i = 0; i < 15; i++) {
             setTimeout(() => {
                 const heart = document.createElement('div');
                 heart.innerHTML = '💖';
                 heart.style.position = 'fixed';
-                heart.style.left = `${Math.random() * 100}%`;
-                heart.style.top = `${Math.random() * 100}%`;
-                heart.style.fontSize = `${Math.random() * 20 + 20}px`;
+                heart.style.left = `${Math.random() * 100}vw`;
+                heart.style.top = `${Math.random() * 100}vh`;
+                heart.style.fontSize = `${Math.random() * 24 + 16}px`;
                 heart.style.opacity = '0.8';
                 heart.style.zIndex = '1000';
                 heart.style.pointerEvents = 'none';
-                heart.style.animation = `floatUp ${Math.random() * 2 + 2}s ease-out forwards`;
+                heart.style.animation = `float-up ${Math.random() * 2 + 2}s ease-out forwards`;
                 document.body.appendChild(heart);
                 
                 setTimeout(() => heart.remove(), 2000);
             }, i * 100);
         }
     }
-
+    
+    createFoodEffect() {
+        const foods = ['🍯', '🍓', '🍎', '🍌', '🍇'];
+        
+        for (let i = 0; i < 10; i++) {
+            setTimeout(() => {
+                const food = document.createElement('div');
+                food.innerHTML = foods[Math.floor(Math.random() * foods.length)];
+                food.style.position = 'fixed';
+                food.style.left = `${Math.random() * 100}vw`;
+                food.style.top = `${Math.random() * 100}vh`;
+                food.style.fontSize = `${Math.random() * 20 + 16}px`;
+                food.style.opacity = '0.8';
+                food.style.zIndex = '1000';
+                food.style.pointerEvents = 'none';
+                food.style.animation = `float-up ${Math.random() * 2 + 1}s ease-out forwards`;
+                document.body.appendChild(food);
+                
+                setTimeout(() => food.remove(), 2000);
+            }, i * 100);
+        }
+    }
+    
+    createMagicEffect() {
+        const symbols = ['✨', '🌟', '💫', '⚡', '🔥'];
+        
+        for (let i = 0; i < 20; i++) {
+            setTimeout(() => {
+                const symbol = document.createElement('div');
+                symbol.innerHTML = symbols[Math.floor(Math.random() * symbols.length)];
+                symbol.style.position = 'fixed';
+                symbol.style.left = `${Math.random() * 100}vw`;
+                symbol.style.top = `${Math.random() * 100}vh`;
+                symbol.style.fontSize = `${Math.random() * 30 + 20}px`;
+                symbol.style.opacity = '0.8';
+                symbol.style.zIndex = '1000';
+                symbol.style.pointerEvents = 'none';
+                symbol.style.animation = `float-up ${Math.random() * 2 + 1}s ease-out forwards`;
+                document.body.appendChild(symbol);
+                
+                setTimeout(() => symbol.remove(), 2000);
+            }, i * 50);
+        }
+    }
+    
     createSparkleEffect(element) {
         for (let i = 0; i < 5; i++) {
             setTimeout(() => {
@@ -974,7 +1115,7 @@ class BerryBearAI {
                 sparkle.style.height = '4px';
                 sparkle.style.background = 'white';
                 sparkle.style.borderRadius = '50%';
-                sparkle.style.boxShadow = '0 0 10px white';
+                sparkle.style.boxShadow = '0 0 8px white';
                 sparkle.style.left = `${Math.random() * 100}%`;
                 sparkle.style.top = `${Math.random() * 100}%`;
                 sparkle.style.animation = `sparkle 0.5s ease-out`;
@@ -984,136 +1125,40 @@ class BerryBearAI {
             }, i * 50);
         }
     }
-
-    createButtonMagic(button) {
-        const rect = button.getBoundingClientRect();
-        for (let i = 0; i < 3; i++) {
-            setTimeout(() => {
-                const spark = document.createElement('div');
-                spark.style.position = 'fixed';
-                spark.style.left = `${rect.left + rect.width / 2}px`;
-                spark.style.top = `${rect.top + rect.height / 2}px`;
-                spark.style.width = '2px';
-                spark.style.height = '2px';
-                spark.style.background = '#FFD700';
-                spark.style.borderRadius = '50%';
-                spark.style.pointerEvents = 'none';
-                spark.style.zIndex = '1000';
-                
-                const angle = Math.random() * Math.PI * 2;
-                const distance = Math.random() * 50 + 30;
-                
-                spark.animate([
-                    { 
-                        transform: 'translate(0, 0) scale(1)',
-                        opacity: 1 
-                    },
-                    { 
-                        transform: `translate(${Math.cos(angle) * distance}px, ${Math.sin(angle) * distance}px) scale(0)`,
-                        opacity: 0 
-                    }
-                ], {
-                    duration: 500,
-                    easing: 'ease-out'
-                });
-                
-                document.body.appendChild(spark);
-                setTimeout(() => spark.remove(), 500);
-            }, i * 100);
-        }
-    }
-
-    createTypingMagic() {
-        const input = document.getElementById('user-input');
-        const rect = input.getBoundingClientRect();
-        
-        for (let i = 0; i < 3; i++) {
-            setTimeout(() => {
-                const star = document.createElement('div');
-                star.innerHTML = '✦';
-                star.style.position = 'fixed';
-                star.style.left = `${rect.right - 30}px`;
-                star.style.top = `${rect.top + 10}px`;
-                star.style.fontSize = '12px';
-                star.style.color = '#FFD700';
-                star.style.pointerEvents = 'none';
-                star.style.zIndex = '1000';
-                star.style.animation = `floatUp 1s ease-out forwards`;
-                document.body.appendChild(star);
-                
-                setTimeout(() => star.remove(), 1000);
-            }, i * 200);
-        }
-    }
-
-    createMagicSpellEffect() {
-        const spells = ['✨', '🌟', '💫', '⚡', '🔥', '💧', '❄️', '🌪️'];
-        for (let i = 0; i < 20; i++) {
-            setTimeout(() => {
-                const spell = document.createElement('div');
-                spell.innerHTML = spells[Math.floor(Math.random() * spells.length)];
-                spell.style.position = 'fixed';
-                spell.style.left = `${Math.random() * 100}%`;
-                spell.style.top = `${Math.random() * 100}%`;
-                spell.style.fontSize = `${Math.random() * 30 + 20}px`;
-                spell.style.opacity = '0.8';
-                spell.style.zIndex = '1000';
-                spell.style.pointerEvents = 'none';
-                spell.style.animation = `floatUp ${Math.random() * 2 + 1}s ease-out forwards`;
-                document.body.appendChild(spell);
-                
-                setTimeout(() => spell.remove(), 2000);
-            }, i * 50);
-        }
-    }
-
-    createFoodEffect() {
-        const foods = ['🍯', '🍓', '🍎', '🍌', '🍇', '🍒'];
-        for (let i = 0; i < 8; i++) {
-            setTimeout(() => {
-                const food = document.createElement('div');
-                food.innerHTML = foods[Math.floor(Math.random() * foods.length)];
-                food.style.position = 'fixed';
-                food.style.left = `${Math.random() * 100}%`;
-                food.style.top = `${Math.random() * 100}%`;
-                food.style.fontSize = `${Math.random() * 24 + 16}px`;
-                food.style.opacity = '0.8';
-                food.style.zIndex = '1000';
-                food.style.pointerEvents = 'none';
-                food.style.animation = `bounce 1s ease-in-out ${Math.random() * 2}s`;
-                document.body.appendChild(food);
-                
-                setTimeout(() => food.remove(), 2000);
-            }, i * 100);
-        }
-    }
-
-    updateUI() {
-        this.updateMoodUI();
-        this.updateEnergyUI();
-        
-        // Set initial settings
-        document.getElementById('voice-enabled').checked = this.voiceEnabled;
-        document.getElementById('sound-effects').checked = true;
-        document.getElementById('dark-mode').checked = false;
-        
-        const speedSlider = document.getElementById('voice-speed');
-        const speedValue = document.getElementById('speed-value');
-        
-        speedSlider.addEventListener('input', () => {
-            const value = parseFloat(speedSlider.value);
-            if (value < 0.8) speedValue.textContent = 'Slow';
-            else if (value > 1.2) speedValue.textContent = 'Fast';
-            else speedValue.textContent = 'Normal';
-        });
-    }
-
+    
     randomChoice(array) {
         return array[Math.floor(Math.random() * array.length)];
     }
 }
 
-// Initialize Berry when page loads
+// Initialize Winni when page loads
 document.addEventListener('DOMContentLoaded', () => {
-    window.berry = new BerryBearAI();
+    window.winni = new WinniBearAI();
+    
+    // Load saved settings
+    const savedSettings = localStorage.getItem('winni-settings');
+    if (savedSettings) {
+        const settings = JSON.parse(savedSettings);
+        
+        // Apply settings
+        document.getElementById('voice-enabled').checked = settings.voiceEnabled;
+        document.getElementById('notifications-enabled').checked = settings.notifications;
+        document.getElementById('sound-effects').checked = settings.soundEffects;
+        document.getElementById('dark-mode').checked = settings.darkMode;
+        document.getElementById('animations').checked = settings.animations;
+        document.getElementById('voice-speed').value = settings.voiceSpeed || 1;
+        document.getElementById('voice-pitch').value = settings.voicePitch || 1.2;
+        document.getElementById('user-name').value = settings.userName || 'Friend';
+        document.getElementById('winni-name').value = settings.winniName || 'Winni';
+        
+        // Apply dark mode
+        if (settings.darkMode) {
+            document.body.classList.add('dark-mode');
+        }
+        
+        // Apply animations
+        if (!settings.animations) {
+            document.body.classList.add('no-animations');
+        }
+    }
 });
