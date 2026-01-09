@@ -134,7 +134,7 @@ class BerryBearAI {
         // Simple AI responses
         if (input.includes('hello') || input.includes('hi') || input.includes('hey')) {
             const greetings = [
-                "Hi there! Berry here! 🐻",
+                "Hi there! Winni here! 🐻",
                 "Hello! So nice to see you!",
                 "Hi! Ready for some fun?",
                 "Hello friend! How are you today?"
