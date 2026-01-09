@@ -3,407 +3,737 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>🐻 Winni the Bear AI Assistant ✨</title>
+    <title>🐻 Winni the Bear - Your Magical AI Companion</title>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;900&family=Comic+Neue:wght@400;700&family=Fredoka+One&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@400;500;600;700&family=Comic+Neue:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🐻</text></svg>">
 </head>
 <body>
-    <!-- Magical Background Elements -->
-    <div class="magic-bg">
-        <div class="sparkle s1"></div>
-        <div class="sparkle s2"></div>
-        <div class="sparkle s3"></div>
-        <div class="sparkle s4"></div>
-        <div class="sparkle s5"></div>
-        <div class="floating-leaf l1">🍃</div>
-        <div class="floating-leaf l2">🍂</div>
-        <div class="floating-heart h1">💖</div>
-        <div class="floating-heart h2">💕</div>
+    <!-- Animated Background -->
+    <div class="background-effects">
+        <div class="floating-bubbles"></div>
+        <div class="forest-effect"></div>
     </div>
 
-    <div class="container">
-        <!-- Header with Title -->
-        <header>
-            <div class="header-content">
-                <div class="title-container">
-                    <h1 class="magic-title">
-                        <span class="title-sparkle">✨</span>
-                        Winni the Bear 
-                        <span class="title-sparkle">✨</span>
-                    </h1>
-                    <p class="subtitle animate__animated animate__pulse animate__infinite">Your Magical AI Companion</p>
-                </div>
-                <div class="weather-bubble magic-float" id="weather-info">
-                    <i class="fas fa-cloud-sun magic-spin"></i>
-                    <div class="weather-details">
-                        <span class="temp">Loading...</span>
-                        <span class="desc">Fetching weather</span>
+    <!-- Snow/Honey Drizzle Effect -->
+    <div class="drizzle-effect"></div>
+
+    <div class="app-container">
+        <!-- App Header -->
+        <header class="app-header">
+            <div class="header-top">
+                <div class="logo-container">
+                    <div class="logo-icon">
+                        <span class="logo-bear">🐻</span>
+                        <div class="logo-sparkle"></div>
                     </div>
-                    <div class="weather-extras">
-                        <span><i class="fas fa-wind"></i> <span id="wind-speed">-</span></span>
-                        <span><i class="fas fa-tint"></i> <span id="humidity">-</span></span>
+                    <div class="logo-text">
+                        <h1 class="app-title">Winni the Bear</h1>
+                        <p class="app-subtitle">Your Magical AI Companion</p>
                     </div>
                 </div>
-                <div class="magic-time" id="current-time">
-                    <i class="fas fa-clock"></i>
-                    <span>Loading...</span>
+                
+                <div class="header-widgets">
+                    <!-- Real-time Weather Widget -->
+                    <div class="weather-widget" id="weather-widget">
+                        <div class="weather-icon">
+                            <i class="fas fa-sun"></i>
+                        </div>
+                        <div class="weather-info">
+                            <div class="weather-temp">
+                                <span class="temp-value" id="temp-value">24°</span>
+                                <span class="temp-unit">C</span>
+                            </div>
+                            <div class="weather-desc" id="weather-desc">Sunny</div>
+                        </div>
+                        <div class="weather-details">
+                            <div class="weather-stat">
+                                <i class="fas fa-wind"></i>
+                                <span id="wind-speed">12 km/h</span>
+                            </div>
+                            <div class="weather-stat">
+                                <i class="fas fa-tint"></i>
+                                <span id="humidity">65%</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Time and Date Widget -->
+                    <div class="time-widget">
+                        <div class="time-display" id="current-time">14:30</div>
+                        <div class="date-display" id="current-date">Mon, Nov 15</div>
+                        <div class="season-icon">
+                            <i class="fas fa-leaf" id="season-icon"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Status Bar -->
+            <div class="status-bar">
+                <div class="status-item">
+                    <span class="status-label">Status:</span>
+                    <span class="status-value online">Online & Ready</span>
+                </div>
+                <div class="status-item">
+                    <span class="status-label">Server:</span>
+                    <span class="status-value connected">
+                        <i class="fas fa-circle"></i>
+                        Connected
+                    </span>
+                </div>
+                <div class="status-item">
+                    <span class="status-label">AI Model:</span>
+                    <span class="status-value">Winni-v3.1</span>
                 </div>
             </div>
         </header>
 
-        <!-- Main Content Area -->
-        <div class="main-content">
-            <!-- Bear Display Area -->
-            <div class="bear-container">
-                <div class="magic-circle"></div>
-                <div class="bear-character" id="bear-character">
-                    <div class="bear-face">
-                        <div class="bear-ears">
-                            <div class="ear left-ear magic-twitch"></div>
-                            <div class="ear right-ear magic-twitch"></div>
-                        </div>
-                        <div class="bear-eyes">
-                            <div class="eye left-eye">
-                                <div class="pupil magic-pupil"></div>
-                            </div>
-                            <div class="eye right-eye">
-                                <div class="pupil magic-pupil"></div>
-                            </div>
-                        </div>
-                        <div class="bear-nose"></div>
-                        <div class="bear-mouth" id="bear-mouth"></div>
-                        <div class="bear-blush left-blush magic-blush"></div>
-                        <div class="bear-blush right-blush magic-blush"></div>
+        <!-- Main App Content -->
+        <main class="app-main">
+            <!-- Left Panel: Winni Character & Stats -->
+            <div class="left-panel">
+                <!-- Winni Character Card -->
+                <div class="character-card">
+                    <div class="card-header">
+                        <h3><i class="fas fa-paw"></i> Winni's Den</h3>
+                        <button class="card-action" id="refresh-winni">
+                            <i class="fas fa-redo"></i>
+                        </button>
                     </div>
                     
-                    <!-- Speech Bubble with Magic Effects -->
-                    <div class="speech-bubble magic-bubble" id="speech-bubble">
-                        <div class="bubble-glow"></div>
+                    <!-- Animated Winni Character -->
+                    <div class="winni-character-container">
+                        <div class="winni-character" id="winni-character">
+                            <!-- Ears -->
+                            <div class="ear left-ear"></div>
+                            <div class="ear right-ear"></div>
+                            
+                            <!-- Face -->
+                            <div class="face">
+                                <!-- Eyes with Blink -->
+                                <div class="eye left-eye">
+                                    <div class="eyelid"></div>
+                                    <div class="pupil"></div>
+                                    <div class="eye-sparkle"></div>
+                                </div>
+                                <div class="eye right-eye">
+                                    <div class="eyelid"></div>
+                                    <div class="pupil"></div>
+                                    <div class="eye-sparkle"></div>
+                                </div>
+                                
+                                <!-- Nose -->
+                                <div class="nose">
+                                    <div class="nose-shine"></div>
+                                </div>
+                                
+                                <!-- Mouth with Expression -->
+                                <div class="mouth" id="winni-mouth"></div>
+                                
+                                <!-- Cheeks -->
+                                <div class="cheek left-cheek"></div>
+                                <div class="cheek right-cheek"></div>
+                            </div>
+                            
+                            <!-- Body -->
+                            <div class="body">
+                                <div class="tummy">
+                                    <div class="tummy-pattern">✦</div>
+                                </div>
+                                <div class="arm left-arm"></div>
+                                <div class="arm right-arm"></div>
+                            </div>
+                            
+                            <!-- Accessories -->
+                            <div class="accessory scarf"></div>
+                            <div class="honey-jar">
+                                <div class="honey"></div>
+                            </div>
+                        </div>
+                        
+                        <!-- Floating Effects -->
+                        <div class="float-effect heart-1">💛</div>
+                        <div class="float-effect heart-2">💖</div>
+                        <div class="float-effect star-1">✨</div>
+                    </div>
+
+                    <!-- Speech Bubble -->
+                    <div class="speech-bubble" id="speech-bubble">
                         <div class="bubble-content">
-                            <p id="bear-speech">Hello! I'm Winni! 🍓 Ready for magical adventures?</p>
+                            <p id="winni-speech">Hello! I'm Winni! Ready for adventure? 🐻</p>
                         </div>
                         <div class="bubble-tail"></div>
-                        <div class="bubble-sparkles">
-                            <span class="sparkle-star">✦</span>
-                            <span class="sparkle-star">✦</span>
+                        <div class="typing-indicator" id="typing-indicator">
+                            <span></span>
+                            <span></span>
+                            <span></span>
                         </div>
                     </div>
-                    
-                    <div class="bear-body">
-                        <div class="arm left-arm magic-wave"></div>
-                        <div class="arm right-arm magic-wave"></div>
-                        <div class="tummy">
-                            <div class="tummy-pattern">⋆</div>
-                        </div>
-                        <div class="magic-berry">🍓</div>
-                    </div>
-                </div>
-                
-                <!-- Bear Mood Indicators -->
-                <div class="mood-indicators magic-card">
-                    <div class="mood-item">
-                        <span class="mood-label"><i class="fas fa-heart"></i> Mood:</span>
-                        <div class="mood-display">
-                            <div class="mood-icon" id="mood-icon">😊</div>
-                            <div class="mood-text-container">
-                                <span id="mood-text">Happy</span>
-                                <div class="mood-glow"></div>
+
+                    <!-- Winni Stats -->
+                    <div class="winni-stats">
+                        <div class="stat-item">
+                            <div class="stat-icon mood">
+                                <i class="fas fa-smile"></i>
                             </div>
-                        </div>
-                    </div>
-                    <div class="energy-level">
-                        <span><i class="fas fa-bolt"></i> Energy:</span>
-                        <div class="energy-container">
-                            <div class="energy-bar">
-                                <div class="energy-fill" id="energy-fill"></div>
-                                <div class="energy-sparkles">
-                                    <div class="energy-sparkle"></div>
-                                    <div class="energy-sparkle"></div>
-                                    <div class="energy-sparkle"></div>
+                            <div class="stat-info">
+                                <div class="stat-label">Mood</div>
+                                <div class="stat-value" id="mood-value">Happy</div>
+                            </div>
+                            <div class="stat-progress">
+                                <div class="progress-bar">
+                                    <div class="progress-fill mood-fill" style="width: 85%"></div>
                                 </div>
                             </div>
-                            <span class="energy-percent" id="energy-percent">80%</span>
+                        </div>
+                        
+                        <div class="stat-item">
+                            <div class="stat-icon energy">
+                                <i class="fas fa-bolt"></i>
+                            </div>
+                            <div class="stat-info">
+                                <div class="stat-label">Energy</div>
+                                <div class="stat-value" id="energy-value">92%</div>
+                            </div>
+                            <div class="stat-progress">
+                                <div class="progress-bar">
+                                    <div class="progress-fill energy-fill" style="width: 92%"></div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="stat-item">
+                            <div class="stat-icon friendship">
+                                <i class="fas fa-heart"></i>
+                            </div>
+                            <div class="stat-info">
+                                <div class="stat-label">Friendship</div>
+                                <div class="stat-value" id="friendship-value">Level 8</div>
+                            </div>
+                            <div class="stat-progress">
+                                <div class="progress-bar">
+                                    <div class="progress-fill friendship-fill" style="width: 80%"></div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
 
-                <!-- Interactive Elements -->
-                <div class="bear-actions">
-                    <button class="magic-btn" id="hug-btn">
-                        <i class="fas fa-heart"></i> Hug Berry
-                    </button>
-                    <button class="magic-btn" id="feed-btn">
-                        <i class="fas fa-apple-alt"></i> Feed Berry
-                    </button>
-                    <button class="magic-btn" id="sleep-btn">
-                        <i class="fas fa-moon"></i> Sleep Mode
-                    </button>
+                <!-- Quick Actions -->
+                <div class="actions-card">
+                    <h3><i class="fas fa-magic"></i> Quick Actions</h3>
+                    <div class="action-grid">
+                        <button class="action-button hug-action" data-action="hug">
+                            <i class="fas fa-heart"></i>
+                            <span>Give Hug</span>
+                        </button>
+                        <button class="action-button feed-action" data-action="feed">
+                            <i class="fas fa-apple-alt"></i>
+                            <span>Feed Honey</span>
+                        </button>
+                        <button class="action-button play-action" data-action="play">
+                            <i class="fas fa-gamepad"></i>
+                            <span>Play Game</span>
+                        </button>
+                        <button class="action-button story-action" data-action="story">
+                            <i class="fas fa-book"></i>
+                            <span>Bedtime Story</span>
+                        </button>
+                        <button class="action-button dance-action" data-action="dance">
+                            <i class="fas fa-music"></i>
+                            <span>Dance Party</span>
+                        </button>
+                        <button class="action-button nap-action" data-action="nap">
+                            <i class="fas fa-moon"></i>
+                            <span>Take a Nap</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Winni's Achievements -->
+                <div class="achievements-card">
+                    <h3><i class="fas fa-trophy"></i> Winni's Achievements</h3>
+                    <div class="achievements-grid">
+                        <div class="achievement unlocked">
+                            <div class="achievement-icon">🐝</div>
+                            <div class="achievement-info">
+                                <div class="achievement-title">Honey Collector</div>
+                                <div class="achievement-desc">Collected 50+ honey jars</div>
+                            </div>
+                        </div>
+                        <div class="achievement unlocked">
+                            <div class="achievement-icon">📚</div>
+                            <div class="achievement-info">
+                                <div class="achievement-title">Story Teller</div>
+                                <div class="achievement-desc">Shared 100+ stories</div>
+                            </div>
+                        </div>
+                        <div class="achievement locked">
+                            <div class="achievement-icon">🌟</div>
+                            <div class="achievement-info">
+                                <div class="achievement-title">Starlight Explorer</div>
+                                <div class="achievement-desc">Find the hidden constellation</div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
 
-            <!-- Chat Interface -->
-            <div class="chat-container magic-card">
-                <div class="chat-header">
-                    <div class="chat-title">
-                        <h2><i class="fas fa-comments magic-spin"></i> Chat with Berry</h2>
-                        <div class="chat-status">
-                            <span class="status-dot online"></span>
-                            <span>Online</span>
+            <!-- Right Panel: Chat Interface -->
+            <div class="right-panel">
+                <!-- Chat Container -->
+                <div class="chat-card">
+                    <div class="chat-header">
+                        <div class="chat-title">
+                            <h3><i class="fas fa-comments"></i> Chat with Winni</h3>
+                            <div class="chat-status">
+                                <span class="status-badge active">
+                                    <i class="fas fa-circle"></i>
+                                    Active
+                                </span>
+                                <span class="message-count">42 messages</span>
+                            </div>
+                        </div>
+                        
+                        <div class="chat-controls">
+                            <button class="control-button voice-control" id="voice-toggle">
+                                <i class="fas fa-microphone"></i>
+                                <span>Voice</span>
+                            </button>
+                            <button class="control-button theme-control" id="theme-toggle">
+                                <i class="fas fa-palette"></i>
+                                <span>Theme</span>
+                            </button>
+                            <button class="control-button clear-control" id="clear-chat">
+                                <i class="fas fa-broom"></i>
+                                <span>Clear</span>
+                            </button>
+                            <button class="control-button settings-control" id="chat-settings">
+                                <i class="fas fa-cog"></i>
+                                <span>Settings</span>
+                            </button>
                         </div>
                     </div>
-                    <div class="voice-controls">
-                        <button class="voice-btn magic-glow" id="voice-toggle">
-                            <i class="fas fa-microphone"></i>
-                            <span class="voice-text">Voice: ON</span>
-                        </button>
-                        <button class="voice-btn magic-btn" id="speak-btn">
-                            <i class="fas fa-volume-up"></i>
-                            <span>Speak</span>
-                        </button>
-                        <button class="voice-btn magic-btn" id="listen-btn">
-                            <i class="fas fa-headphones"></i>
-                            <span>Listen</span>
-                        </button>
-                    </div>
-                </div>
-                
-                <!-- Chat Messages -->
-                <div class="chat-messages" id="chat-messages">
-                    <div class="welcome-message">
-                        <div class="message bear-message">
-                            <div class="message-avatar">🐻</div>
+
+                    <!-- Chat Messages Area -->
+                    <div class="chat-messages" id="chat-messages">
+                        <!-- Welcome Message -->
+                        <div class="message winni-message welcome">
+                            <div class="message-avatar">
+                                <div class="avatar-icon">🐻</div>
+                            </div>
                             <div class="message-content">
                                 <div class="message-header">
-                                    <span class="sender-name">Berry the Bear</span>
-                                    <span class="message-time">Just now</span>
+                                    <span class="sender">Winni the Bear</span>
+                                    <span class="timestamp">Just now</span>
                                 </div>
-                                <p>Hello! I'm Winni, your magical bear AI! I can help you with:</p>
-                                <ul class="capabilities">
-                                    <li><i class="fas fa-magic"></i> Answering questions with magic</li>
-                                    <li><i class="fas fa-laugh-beam"></i> Telling jokes & stories</li>
-                                    <li><i class="fas fa-cloud-sun"></i> Weather forecasting</li>
-                                    <li><i class="fas fa-gamepad"></i> Playing magical games</li>
-                                    <li><i class="fas fa-music"></i> Singing songs</li>
-                                    <li><i class="fas fa-star"></i> Sharing fun facts</li>
-                                </ul>
-                                <div class="message-footer">
-                                    <span class="mood-indicator">Currently feeling: <span class="happy-text">Happy!</span></span>
+                                <div class="message-text">
+                                    <p>Hello there! I'm Winni, your friendly bear companion! 🐻✨</p>
+                                    <p>I can help you with all sorts of things:</p>
+                                    <ul class="features-list">
+                                        <li><i class="fas fa-brain"></i> Answer questions & solve problems</li>
+                                        <li><i class="fas fa-cloud-sun"></i> Check weather & tell stories</li>
+                                        <li><i class="fas fa-gamepad"></i> Play games & have fun</li>
+                                        <li><i class="fas fa-music"></i> Sing songs & tell jokes</li>
+                                        <li><i class="fas fa-magic"></i> Share magical facts</li>
+                                    </ul>
+                                    <p>What would you like to do today?</p>
                                 </div>
+                                <div class="message-reactions">
+                                    <button class="reaction-button">😊</button>
+                                    <button class="reaction-button">🐻</button>
+                                    <button class="reaction-button">✨</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Chat Input Area -->
+                    <div class="chat-input-area">
+                        <div class="input-wrapper">
+                            <div class="input-icons">
+                                <button class="input-icon emoji-picker" id="emoji-picker">
+                                    <i class="fas fa-smile"></i>
+                                </button>
+                                <button class="input-icon voice-input" id="voice-input">
+                                    <i class="fas fa-microphone-alt"></i>
+                                </button>
+                                <button class="input-icon attach-file">
+                                    <i class="fas fa-paperclip"></i>
+                                </button>
+                            </div>
+                            
+                            <input type="text" 
+                                   id="chat-input" 
+                                   class="chat-input" 
+                                   placeholder="Type your message to Winni... or say 'Hey Winni!'"
+                                   autocomplete="off"
+                                   autofocus>
+                            
+                            <div class="input-actions">
+                                <button class="send-button" id="send-button">
+                                    <i class="fas fa-paper-plane"></i>
+                                    <span class="send-text">Send</span>
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <!-- Quick Suggestions -->
+                        <div class="quick-suggestions">
+                            <button class="suggestion" data-suggestion="Tell me a story">
+                                <i class="fas fa-book"></i> Story time
+                            </button>
+                            <button class="suggestion" data-suggestion="How's the weather?">
+                                <i class="fas fa-cloud-sun"></i> Check weather
+                            </button>
+                            <button class="suggestion" data-suggestion="Tell me a joke">
+                                <i class="fas fa-laugh-beam"></i> Make me laugh
+                            </button>
+                            <button class="suggestion" data-suggestion="What can you do?">
+                                <i class="fas fa-question-circle"></i> Your abilities
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Features & Capabilities -->
+                <div class="features-card">
+                    <h3><i class="fas fa-star"></i> Winni's Magical Features</h3>
+                    <div class="features-grid">
+                        <div class="feature">
+                            <div class="feature-icon voice">
+                                <i class="fas fa-microphone-alt"></i>
+                            </div>
+                            <div class="feature-content">
+                                <h4>Voice Interaction</h4>
+                                <p>Talk naturally with Winni using voice commands</p>
+                            </div>
+                        </div>
+                        <div class="feature">
+                            <div class="feature-icon emotion">
+                                <i class="fas fa-heart"></i>
+                            </div>
+                            <div class="feature-content">
+                                <h4>Emotional AI</h4>
+                                <p>Winni understands and expresses emotions</p>
+                            </div>
+                        </div>
+                        <div class="feature">
+                            <div class="feature-icon learning">
+                                <i class="fas fa-graduation-cap"></i>
+                            </div>
+                            <div class="feature-content">
+                                <h4>Always Learning</h4>
+                                <p>Gets smarter with every conversation</p>
+                            </div>
+                        </div>
+                        <div class="feature">
+                            <div class="feature-icon magic">
+                                <i class="fas fa-hat-wizard"></i>
+                            </div>
+                            <div class="feature-content">
+                                <h4>Magical Stories</h4>
+                                <p>Creates enchanting tales on demand</p>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <!-- Input Area -->
-                <div class="input-area">
-                    <div class="input-container">
-                        <div class="input-magic-border">
-                            <input type="text" id="user-input" placeholder="Type your message or say 'Hey Berry!'..." 
-                                   autocomplete="off">
-                            <div class="input-sparkle">
-                                <i class="fas fa-wand-sparkles"></i>
+                <!-- Recent Activity -->
+                <div class="activity-card">
+                    <h3><i class="fas fa-history"></i> Recent Activity</h3>
+                    <div class="activity-list">
+                        <div class="activity-item">
+                            <div class="activity-icon">📖</div>
+                            <div class="activity-content">
+                                <div class="activity-text">Told a bedtime story</div>
+                                <div class="activity-time">2 minutes ago</div>
                             </div>
                         </div>
-                        <div class="input-buttons">
-                            <button id="send-btn" class="action-btn magic-send">
-                                <i class="fas fa-paper-plane"></i>
-                            </button>
-                            <button id="clear-btn" class="action-btn secondary magic-clear">
-                                <i class="fas fa-broom"></i>
-                            </button>
-                            <button id="emoji-btn" class="action-btn magic-emoji">
-                                <i class="fas fa-smile"></i>
-                            </button>
+                        <div class="activity-item">
+                            <div class="activity-icon">😄</div>
+                            <div class="activity-content">
+                                <div class="activity-text">Shared a funny joke</div>
+                                <div class="activity-time">15 minutes ago</div>
+                            </div>
+                        </div>
+                        <div class="activity-item">
+                            <div class="activity-icon">🎮</div>
+                            <div class="activity-content">
+                                <div class="activity-text">Played guessing game</div>
+                                <div class="activity-time">1 hour ago</div>
+                            </div>
                         </div>
                     </div>
-                    <div class="quick-actions">
-                        <button class="quick-btn magic-action" data-action="joke">
-                            <i class="fas fa-laugh-beam"></i> Tell a joke
-                        </button>
-                        <button class="quick-btn magic-action" data-action="weather">
-                            <i class="fas fa-cloud-sun"></i> Weather
-                        </button>
-                        <button class="quick-btn magic-action" data-action="story">
-                            <i class="fas fa-book"></i> Magical story
-                        </button>
-                        <button class="quick-btn magic-action" data-action="game">
-                            <i class="fas fa-gamepad"></i> Play game
-                        </button>
-                        <button class="quick-btn magic-action" data-action="song">
-                            <i class="fas fa-music"></i> Sing a song
-                        </button>
-                        <button class="quick-btn magic-action" data-action="fact">
-                            <i class="fas fa-lightbulb"></i> Fun fact
-                        </button>
-                    </div>
                 </div>
             </div>
+        </main>
 
-            <!-- Features Panel -->
-            <div class="features-panel magic-card">
-                <h3><i class="fas fa-star magic-spin"></i> Winni's Magical Features</h3>
-                <div class="features-grid">
-                    <div class="feature-card magic-feature">
-                        <div class="feature-icon"><i class="fas fa-magic"></i></div>
-                        <h4>Voice Magic</h4>
-                        <p>Talk to Winni using your voice</p>
-                        <div class="feature-glow"></div>
-                    </div>
-                    <div class="feature-card magic-feature">
-                        <div class="feature-icon"><i class="fas fa-sparkles"></i></div>
-                        <h4>Emotional AI</h4>
-                        <p>Real moods & feelings</p>
-                        <div class="feature-glow"></div>
-                    </div>
-                    <div class="feature-card magic-feature">
-                        <div class="feature-icon"><i class="fas fa-gamepad"></i></div>
-                        <h4>Magical Games</h4>
-                        <p>Interactive games & fun</p>
-                        <div class="feature-glow"></div>
-                    </div>
-                    <div class="feature-card magic-feature">
-                        <div class="feature-icon"><i class="fas fa-cloud-moon"></i></div>
-                        <h4>Weather Wizard</h4>
-                        <p>Live weather updates</p>
-                        <div class="feature-glow"></div>
-                    </div>
-                    <div class="feature-card magic-feature">
-                        <div class="feature-icon"><i class="fas fa-book-spells"></i></div>
-                        <h4>Storytelling</h4>
-                        <p>Magical stories & tales</p>
-                        <div class="feature-glow"></div>
-                    </div>
-                    <div class="feature-card magic-feature">
-                        <div class="feature-icon"><i class="fas fa-music-note"></i></div>
-                        <h4>Singing</h4>
-                        <p>Songs & rhymes</p>
-                        <div class="feature-glow"></div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Footer -->
-        <footer>
+        <!-- App Footer -->
+        <footer class="app-footer">
             <div class="footer-content">
-                <p class="footer-text">
-                    Made with <span class="magic-heart">✨💖✨</span> by Winni the Bear 
-                    <span class="magic-dot">•</span> 
-                    <span class="magic-rainbow">Magical AI Assistant</span>
-                </p>
-                <div class="footer-links">
-                    <button id="settings-btn" class="footer-btn magic-btn">
-                        <i class="fas fa-cog magic-spin"></i> Settings
-                    </button>
-                    <button id="help-btn" class="footer-btn magic-btn">
-                        <i class="fas fa-question-circle"></i> Help
-                    </button>
-                    <button id="about-btn" class="footer-btn magic-btn">
-                        <i class="fas fa-info-circle"></i> About
-                    </button>
-                    <button id="secret-btn" class="footer-btn magic-btn">
-                        <i class="fas fa-key"></i> Secret Mode
-                    </button>
+                <div class="footer-left">
+                    <div class="footer-logo">
+                        <span class="footer-bear">🐻</span>
+                        <span class="footer-text">Winni the Bear AI</span>
+                    </div>
+                    <div class="footer-info">
+                        <span class="version">v3.1.4</span>
+                        <span class="separator">•</span>
+                        <span class="status" id="connection-status">
+                            <i class="fas fa-circle"></i>
+                            Connected
+                        </span>
+                    </div>
                 </div>
+                
+                <div class="footer-center">
+                    <div class="footer-stats">
+                        <div class="stat">
+                            <i class="fas fa-comments"></i>
+                            <span id="total-messages">1,247</span> chats
+                        </div>
+                        <div class="stat">
+                            <i class="fas fa-clock"></i>
+                            <span id="uptime">24/7</span> uptime
+                        </div>
+                        <div class="stat">
+                            <i class="fas fa-users"></i>
+                            <span id="active-users">1,892</span> friends
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="footer-right">
+                    <div class="footer-links">
+                        <button class="footer-link" id="help-button">
+                            <i class="fas fa-question-circle"></i>
+                            Help
+                        </button>
+                        <button class="footer-link" id="about-button">
+                            <i class="fas fa-info-circle"></i>
+                            About
+                        </button>
+                        <button class="footer-link" id="privacy-button">
+                            <i class="fas fa-shield-alt"></i>
+                            Privacy
+                        </button>
+                        <button class="footer-link" id="feedback-button">
+                            <i class="fas fa-comment-dots"></i>
+                            Feedback
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="footer-copyright">
+                Made with <i class="fas fa-heart" style="color: #ff6b6b;"></i> for bear lovers everywhere
+                <span class="copyright">© 2024 Winni AI. All adventures reserved.</span>
             </div>
         </footer>
     </div>
 
+    <!-- Modals & Overlays -->
+    
     <!-- Settings Modal -->
     <div class="modal" id="settings-modal">
-        <div class="modal-content magic-card">
+        <div class="modal-content">
             <div class="modal-header">
-                <h3><i class="fas fa-cog magic-spin"></i> Berry's Magical Settings</h3>
-                <button class="close-modal-btn" id="close-settings">&times;</button>
+                <h3><i class="fas fa-cog"></i> Winni's Settings</h3>
+                <button class="modal-close" id="close-settings">&times;</button>
             </div>
-            <div class="settings-grid">
-                <div class="setting-item">
-                    <div class="setting-icon"><i class="fas fa-volume-up"></i></div>
-                    <div class="setting-content">
-                        <label>
-                            <input type="checkbox" id="voice-enabled" checked class="magic-checkbox">
-                            <span class="magic-check"></span>
-                            Enable Voice Features
-                        </label>
-                    </div>
+            <div class="modal-body">
+                <div class="settings-tabs">
+                    <button class="tab-button active" data-tab="general">General</button>
+                    <button class="tab-button" data-tab="voice">Voice</button>
+                    <button class="tab-button" data-tab="appearance">Appearance</button>
+                    <button class="tab-button" data-tab="advanced">Advanced</button>
                 </div>
-                <div class="setting-item">
-                    <div class="setting-icon"><i class="fas fa-music"></i></div>
-                    <div class="setting-content">
-                        <label>
-                            <input type="checkbox" id="sound-effects" checked class="magic-checkbox">
-                            <span class="magic-check"></span>
-                            Sound Effects
-                        </label>
-                    </div>
-                </div>
-                <div class="setting-item">
-                    <div class="setting-icon"><i class="fas fa-tachometer-alt"></i></div>
-                    <div class="setting-content">
-                        <label>
-                            Berry's Voice Speed:
-                            <div class="slider-container">
-                                <input type="range" id="voice-speed" min="0.5" max="2" step="0.1" value="1" class="magic-slider">
-                                <div class="slider-fill"></div>
+                
+                <div class="settings-content">
+                    <div class="tab-content active" id="general-tab">
+                        <div class="setting-group">
+                            <h4><i class="fas fa-user"></i> Personalization</h4>
+                            <div class="setting-item">
+                                <label for="user-name">Your Name</label>
+                                <input type="text" id="user-name" placeholder="Enter your name" value="Friend">
                             </div>
-                            <span id="speed-value" class="speed-value">Normal</span>
-                        </label>
-                    </div>
-                </div>
-                <div class="setting-item">
-                    <div class="setting-icon"><i class="fas fa-palette"></i></div>
-                    <div class="setting-content">
-                        <label>
-                            Theme Color:
-                            <div class="theme-colors">
-                                <button class="theme-color" data-color="default"></button>
-                                <button class="theme-color" data-color="forest"></button>
-                                <button class="theme-color" data-color="berry"></button>
-                                <button class="theme-color" data-color="moonlight"></button>
-                                <button class="theme-color" data-color="sunset"></button>
+                            <div class="setting-item">
+                                <label for="winni-name">Winni's Nickname</label>
+                                <input type="text" id="winni-name" placeholder="Winni" value="Winni">
                             </div>
-                        </label>
+                        </div>
+                        
+                        <div class="setting-group">
+                            <h4><i class="fas fa-bell"></i> Notifications</h4>
+                            <div class="setting-item toggle">
+                                <label>
+                                    <input type="checkbox" id="notifications-enabled" checked>
+                                    <span class="toggle-slider"></span>
+                                    Enable notifications
+                                </label>
+                            </div>
+                            <div class="setting-item toggle">
+                                <label>
+                                    <input type="checkbox" id="sound-effects" checked>
+                                    <span class="toggle-slider"></span>
+                                    Sound effects
+                                </label>
+                            </div>
+                        </div>
                     </div>
-                </div>
-                <div class="setting-item">
-                    <div class="setting-icon"><i class="fas fa-moon"></i></div>
-                    <div class="setting-content">
-                        <label>
-                            <input type="checkbox" id="dark-mode" class="magic-checkbox">
-                            <span class="magic-check"></span>
-                            Dark Mode
-                        </label>
+                    
+                    <div class="tab-content" id="voice-tab">
+                        <div class="setting-group">
+                            <h4><i class="fas fa-microphone"></i> Voice Settings</h4>
+                            <div class="setting-item toggle">
+                                <label>
+                                    <input type="checkbox" id="voice-enabled" checked>
+                                    <span class="toggle-slider"></span>
+                                    Enable voice features
+                                </label>
+                            </div>
+                            <div class="setting-item">
+                                <label for="voice-speed">Voice Speed</label>
+                                <div class="slider-container">
+                                    <input type="range" id="voice-speed" min="0.5" max="2" step="0.1" value="1">
+                                    <div class="slider-labels">
+                                        <span>Slow</span>
+                                        <span>Normal</span>
+                                        <span>Fast</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="setting-item">
+                                <label for="voice-pitch">Voice Pitch</label>
+                                <div class="slider-container">
+                                    <input type="range" id="voice-pitch" min="0.8" max="1.5" step="0.1" value="1.2">
+                                    <div class="slider-labels">
+                                        <span>Low</span>
+                                        <span>Normal</span>
+                                        <span>High</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="tab-content" id="appearance-tab">
+                        <div class="setting-group">
+                            <h4><i class="fas fa-palette"></i> Theme</h4>
+                            <div class="theme-options">
+                                <button class="theme-option active" data-theme="forest">
+                                    <div class="theme-preview forest"></div>
+                                    <span>Forest</span>
+                                </button>
+                                <button class="theme-option" data-theme="berry">
+                                    <div class="theme-preview berry"></div>
+                                    <span>Berry</span>
+                                </button>
+                                <button class="theme-option" data-theme="midnight">
+                                    <div class="theme-preview midnight"></div>
+                                    <span>Midnight</span>
+                                </button>
+                                <button class="theme-option" data-theme="honey">
+                                    <div class="theme-preview honey"></div>
+                                    <span>Honey</span>
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <div class="setting-group">
+                            <h4><i class="fas fa-expand"></i> Display</h4>
+                            <div class="setting-item toggle">
+                                <label>
+                                    <input type="checkbox" id="dark-mode">
+                                    <span class="toggle-slider"></span>
+                                    Dark mode
+                                </label>
+                            </div>
+                            <div class="setting-item toggle">
+                                <label>
+                                    <input type="checkbox" id="animations" checked>
+                                    <span class="toggle-slider"></span>
+                                    Animations
+                                </label>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
-            <button class="save-btn magic-btn">
-                <i class="fas fa-save"></i> Save Magic Settings
-            </button>
+            <div class="modal-footer">
+                <button class="button secondary" id="reset-settings">Reset</button>
+                <button class="button primary" id="save-settings">Save Changes</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- About Modal -->
+    <div class="modal" id="about-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3><i class="fas fa-info-circle"></i> About Winni</h3>
+                <button class="modal-close" id="close-about">&times;</button>
+            </div>
+            <div class="modal-body about-content">
+                <div class="about-hero">
+                    <div class="about-icon">🐻✨</div>
+                    <h2>Meet Winni the Bear</h2>
+                    <p class="about-tagline">Your magical AI companion from the enchanted forest</p>
+                </div>
+                
+                <div class="about-story">
+                    <p>Winni was created in the heart of an enchanted forest where magic flows through every tree and stream. As a curious bear with a heart full of wonder, Winni learned the ancient secrets of the forest and now shares them with friends like you!</p>
+                    
+                    <div class="about-features">
+                        <div class="about-feature">
+                            <i class="fas fa-heart"></i>
+                            <h4>Emotional Intelligence</h4>
+                            <p>Winni understands feelings and responds with empathy</p>
+                        </div>
+                        <div class="about-feature">
+                            <i class="fas fa-magic"></i>
+                            <h4>Magical Abilities</h4>
+                            <p>From weather whispers to star stories, Winni knows it all</p>
+                        </div>
+                        <div class="about-feature">
+                            <i class="fas fa-graduation-cap"></i>
+                            <h4>Always Learning</h4>
+                            <p>Winni grows smarter with every conversation</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 
     <!-- Emoji Picker Modal -->
     <div class="modal emoji-modal" id="emoji-modal">
-        <div class="modal-content magic-card">
+        <div class="modal-content">
+            <div class="emoji-categories">
+                <button class="emoji-category active" data-category="smileys">😊 Smileys</button>
+                <button class="emoji-category" data-category="animals">🐻 Animals</button>
+                <button class="emoji-category" data-category="nature">🌳 Nature</button>
+                <button class="emoji-category" data-category="objects">🎮 Objects</button>
+                <button class="emoji-category" data-category="symbols">✨ Symbols</button>
+            </div>
             <div class="emoji-grid" id="emoji-grid">
-                <!-- Emojis will be populated by JavaScript -->
+                <!-- Emojis loaded by JavaScript -->
             </div>
         </div>
     </div>
 
     <!-- Audio Elements -->
-    <audio id="speech-audio" preload="auto"></audio>
-    <audio id="notification-sound" src="https://assets.mixkit.co/sfx/preview/mixkit-magic-sparkle-3024.mp3"></audio>
-    <audio id="positive-sound" src="https://assets.mixkit.co/sfx/preview/mixkit-achievement-bell-600.mp3"></audio>
-    <audio id="magic-sound" src="https://assets.mixkit.co/sfx/preview/mixkit-magic-whistle-343.mp3"></audio>
-    <audio id="nature-sound" src="https://assets.mixkit.co/sfx/preview/mixkit-forest-ambience-573.mp3"></audio>
-    
-    <!-- Confetti Library -->
-    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
+    <audio id="notification-sound" src="https://assets.mixkit.co/sfx/preview/mixkit-correct-answer-tone-2870.mp3" preload="auto"></audio>
+    <audio id="positive-sound" src="https://assets.mixkit.co/sfx/preview/mixkit-achievement-bell-600.mp3" preload="auto"></audio>
+    <audio id="magic-sound" src="https://assets.mixkit.co/sfx/preview/mixkit-magic-whistle-343.mp3" preload="auto"></audio>
+    <audio id="nature-sound" src="https://assets.mixkit.co/sfx/preview/mixkit-forest-ambience-573.mp3" preload="auto"></audio>
     
     <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="script.js"></script>
 </body>
